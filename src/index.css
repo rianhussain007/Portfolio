@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-surface: #0b1326;
+  --color-surface-dim: #060e20;
+  --color-primary: #00d9ff;
+  --color-secondary: #ddb7ff;
+  --color-tertiary: #b9f600;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular;
+}
+
+::selection {
+  background-color: rgba(0, 217, 255, 0.3);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
