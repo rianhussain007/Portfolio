@@ -6,7 +6,7 @@ Personal portfolio and case-study site for **Rian Hussain** — AI/ML engineer a
 
 ## What's inside
 
-- **Three flagship builds, up front.** MarmaAI, Kisan360 and ErgoVigilance get large editorial showcases on the homepage, in that order. Everything else sits in "More experiments & builds" beneath them.
+- **Three flagship builds, up front.** ErgoVigilance, MarmaAI and Kisan360 get large editorial showcases on the homepage, in that order (array order in `projects.ts` is the single source of truth for that sequence). Everything else sits in "More experiments & builds" beneath them.
 - **Nine-part case studies.** Every project opens a dialog built on the same structure: 01 Problem, 02 Approach, 03 My contribution, 04 System, 05 Engineering, 06 Product, 07 Challenges, 08 Current status, 09 Links. Deep-linkable, e.g. `/#work/marmaai`.
 - **No card grid.** Flagship projects are full-width, alternating compositions: large display type, hairline rules, and a different visual per project (pipeline spine, service topology, real screenshots plus a recorded demo).
 - **Print-grade palette.** Warm paper (`#F4F1EA`), ink (`#171714`), olive and terracotta accents, with a single dark contrast band for the contact section. Every text/background pair meets WCAG AA (4.5:1).

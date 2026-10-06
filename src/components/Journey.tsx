@@ -11,13 +11,11 @@ interface Affiliation {
 
 const affiliations: Affiliation[] = [
   {
-    name: 'Kissan 360 — GitHub organisation',
-    kind: 'Organisation repo · 2026',
-    role: 'Lead Developer & System Architect',
-    mine: 'The architecture across the stack: the Express API and MongoDB models, the deterministic net-realization service, the price pipeline and its provenance handling, the FPO pooling maths and the React demo UI.',
-    shared:
-      'A second contributor works on the platform. The mobile Expo app is a legacy scaffold that is out of scope for the demo.',
-    note: 'A GitHub organisation for one project — not a registered company.',
+    name: 'ErgoVigilance',
+    kind: 'Team project · 2026',
+    role: 'Lead builder',
+    mine: 'The pose pipeline and dual-core design, the biomechanical risk engine, the FastAPI backend, the four-role React dashboard, session replay, the hand-labelled evaluation harness and the Docker deployment.',
+    shared: 'A team worked on the project with me and is credited in the repository.',
   },
   {
     name: 'MarmaAI',
@@ -29,11 +27,13 @@ const affiliations: Affiliation[] = [
     note: 'A project and product in development — not a company, and not a medical product.',
   },
   {
-    name: 'ErgoVigilance',
-    kind: 'Team project · 2026',
-    role: 'Lead builder',
-    mine: 'The pose pipeline and dual-core design, the biomechanical risk engine, the FastAPI backend, the four-role React dashboard, session replay, the hand-labelled evaluation harness and the Docker deployment.',
-    shared: 'A team worked on the project with me and is credited in the repository.',
+    name: 'Kissan 360 — GitHub organisation',
+    kind: 'Organisation repo · 2026',
+    role: 'Lead Developer & System Architect',
+    mine: 'The architecture across the stack: the Express API and MongoDB models, the deterministic net-realization service, the price pipeline and its provenance handling, the FPO pooling maths and the React demo UI.',
+    shared:
+      'A second contributor works on the platform. The mobile Expo app is a legacy scaffold that is out of scope for the demo.',
+    note: 'A GitHub organisation for one project — not a registered company.',
   },
   {
     name: 'Edunet Foundation — Skill4Future',

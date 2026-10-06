@@ -40,7 +40,7 @@ TERRACOTTA = (158, 78, 38)  # #9e4e26 (text-safe terracotta)
 NAME = "RIAN HUSSAIN"
 ROLE = "AI/ML ENGINEER & PRODUCT BUILDER"
 TAGLINE = "Applied AI \u00d7 Computer Vision \u00d7 Product Engineering"
-PROJECTS = ["MARMAAI", "KISAN360", "ERGOVIGILANCE"]
+PROJECTS = ["ERGOVIGILANCE", "MARMAAI", "KISAN360"]
 SITE = "rianportfolio.netlify.app"
 
 ROOT = Path(__file__).resolve().parent.parent

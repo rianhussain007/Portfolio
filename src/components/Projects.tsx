@@ -371,7 +371,7 @@ export function SelectedWork() {
         index="01"
         eyebrow="Selected work"
         title="Systems I've taken from ideas and problem statements toward working products."
-        copy="Three builds carry the engineering depth: a research product, a market platform for farmers and a computer-vision system. Each one opens into a full case study — problem, approach, my contribution, architecture, engineering decisions, product, challenges, current status and links."
+        copy="Three builds carry the engineering depth: a computer-vision system, an applied research product and a market platform for farmers. Each one opens into a full case study — problem, approach, my contribution, architecture, engineering decisions, product, challenges, current status and links."
       />
 
       <div className="mt-16 space-y-24 sm:mt-20 sm:space-y-32">

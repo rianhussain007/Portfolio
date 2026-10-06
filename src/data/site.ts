@@ -12,9 +12,6 @@ export const site = {
   status: 'Building across applied AI, computer vision and intelligent products.',
 } as const;
 
-/** The three builds that carry the portfolio, in presentation order. */
-export const flagshipOrder = ['marmaai', 'kisan360', 'ergovigilance'] as const;
-
 export const navSections = [
   { label: 'Work', href: '#work' },
   { label: 'About', href: '#about' },

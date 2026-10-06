@@ -123,7 +123,162 @@ const ERGO_DEMO = 'https://www.youtube.com/watch?v=ovniLZww4VY';
 
 export const projects: Project[] = [
   /* -------------------------------------------------------------------------
-     FLAGSHIP 01 — MarmaAI
+     FLAGSHIP 01 — ErgoVigilance
+     ------------------------------------------------------------------------- */
+  {
+    slug: 'ergovigilance',
+    title: 'ErgoVigilance',
+    subtitle: 'Real-time posture risk screening',
+    tagline: 'Computer Vision for Workplace Ergonomics',
+    description:
+      'AI-powered workplace ergonomics platform using computer vision to identify posture risk and turn live camera data into actionable ergonomic insights.',
+    category: 'ai',
+    tier: 'flagship',
+    year: '2026',
+    role: 'Lead builder — computer vision pipeline, backend API and dashboard (team project)',
+    period: '2026',
+    status: 'TRL-6, closed',
+    accent: '#3e4a44',
+    stack: [
+      'React 19',
+      'TypeScript',
+      'Vite',
+      'Tailwind CSS',
+      'Recharts',
+      'FastAPI',
+      'Python 3.13',
+      'MediaPipe',
+      'YOLOv8',
+      'ByteTrack',
+      'YuNet / SFace',
+      'HistGradientBoosting',
+      'SQLite / PostgreSQL',
+      'Ollama',
+      'Docker Compose',
+    ],
+    specs: [
+      { label: 'Agreement', value: '87.6% with assessors' },
+      { label: 'Tests', value: '765 automated' },
+      { label: 'API', value: '110+ endpoints' },
+    ],
+    problem:
+      'Ergonomic risk is normally assessed by hand: someone watches a workstation, scores it once, and moves on. That is slow, inconsistent between assessors, and blind to how posture changes across a shift. The question behind ErgoVigilance was whether one ordinary webcam could produce continuous, explainable posture risk that a supervisor can act on — without shipping worker video to a third party.',
+    idea:
+      'One webcam, one continuous signal, no worker video leaving the site. Posture is measured rather than judged: joint angles become biomechanical features, features are scored against RULA/REBA-informed thresholds, dwell-based hysteresis keeps the alert level stable, and every score has to trace back to a measured angle and a documented threshold.',
+    contribution:
+      'I led the build: the pose pipeline and its dual-core design, the biomechanical feature set and risk scoring, the FastAPI backend, the React dashboard across four roles, session replay, the hand-labelled evaluation harness and the four-service Docker deployment. A team worked on the project with me and is credited in the repository.',
+    collaborators: 'A team project — contributors are credited in the repository.',
+    built: [
+      'Real-time pose pipeline — MediaPipe Pose (33 keypoints) over a USB webcam, plus a cloud path using YOLOv8-pose (17 COCO keypoints) and ByteTrack worker tracking over RTSP CCTV.',
+      'Risk engine — 12 biomechanical features across neck, trunk, shoulders, knees, wrists and stance, scored against RULA/REBA-informed thresholds, with temporal hysteresis so alert levels do not flicker frame to frame.',
+      'Four role-based experiences in one React app: operators get live feedback and stretch reminders, supervisors get worker risk summaries and department heatmaps, safety managers get alert management and PDF audit reports, admins get camera configuration and deployment health.',
+      'Session history and replay — recorded sessions replay with the skeleton overlay, frame-by-frame video review with temporal smoothing and keypoint interpolation.',
+      'FastAPI backend with 110+ endpoints, badge/QR and consent-gated face identity, an alert lifecycle with audit trail, and Playwright-rendered PDF safety reports.',
+      'Local AI layer — an Ollama integration turns raw risk scores into plain-language explanations without calling an external API.',
+      'Operational work — four-service Docker Compose stack, fail-closed JWT auth, health and readiness probes, retention policy, AES-256 encrypted backups, CSP headers and non-root containers.',
+    ],
+    how: [
+      {
+        label: 'Capture',
+        detail:
+          'USB webcam or FFmpeg-ingested RTSP CCTV stream, with a setup wizard for framing and lighting.',
+      },
+      {
+        label: 'Pose estimation',
+        detail:
+          'MediaPipe Pose (33 keypoints) on-premise, or YOLOv8-pose (17 COCO keypoints) with ByteTrack in the cloud core.',
+      },
+      {
+        label: 'Biomechanical features',
+        detail: 'Joint angles and alignment across neck, trunk, shoulders, knees, wrists and stance.',
+      },
+      {
+        label: 'Risk scoring',
+        detail:
+          'RULA/REBA-informed thresholds with dwell-based hysteresis so risk levels stay stable.',
+      },
+      {
+        label: 'Task + risk classification',
+        detail: 'HistGradientBoosting classifiers label the activity and calibrate the risk band.',
+      },
+      {
+        label: 'Actionable surface',
+        detail:
+          'Live operator feedback, supervisor heatmaps, alert lifecycle, PDF reports and session replay.',
+      },
+    ],
+    engineering: [
+      'Two pose paths exist for one reason: privacy. MediaPipe runs on-premise so worker video never leaves the site, while the YOLOv8 + ByteTrack cloud core exists for sites where no hardware can be installed. The dashboard behaves the same either way.',
+      'Hysteresis is a product decision, not a smoothing detail. Dwell-based thresholds mean a risk level has to persist before it escalates or clears, so supervisors are not trained to ignore flickering alerts.',
+      'The first accuracy number was circular — measured against auto-generated labels. I retired it, hand-labelled 500 frames and published 87.6% agreement with its limits stated on the validation page itself.',
+      'Only LOW and MEDIUM risk classes were measured against human labels; the page says so rather than implying the whole scale is validated.',
+      'Auth fails closed — the stack refuses to boot without AUTH_JWT_SECRET, and face identity is consent-gated and tenant-scoped, so matching runs only when an explicit consent record exists.',
+      'Local inference by default: the Ollama layer explains risk scores in plain language without an external API call, which keeps both the data and the dependency footprint on site.',
+    ],
+    product:
+      'A recorded walkthrough of the running system is below, and the four screens in the case study are captured from the application itself — the supervisor dashboard, the validation page, the model comparison view and the cloud camera configuration.',
+    showcase:
+      'The dashboard, validation, model-comparison and cloud-camera screens are screenshots captured from the running application — not mockups. The repository carries the full backend, cloud core, frontend, test suites and architecture docs, and the ground-truth evaluation file is published alongside the 87.6% figure.',
+    screenshots: [
+      {
+        src: '/projects/ergovigilance-dashboard.webp',
+        alt: 'ErgoVigilance supervisor dashboard showing live posture risk level, active alerts and team status',
+        caption: 'Live dashboard — current risk level, active alerts and team status from a running session.',
+        width: 1400,
+        height: 788,
+      },
+      {
+        src: '/projects/ergovigilance-validation.webp',
+        alt: 'ErgoVigilance validation page reporting ground-truth evaluation against 500 labelled frames',
+        caption: 'Validation page — the 87.6% figure with its methodology and limits stated on the page itself.',
+        width: 1400,
+        height: 788,
+      },
+      {
+        src: '/projects/ergovigilance-model-dashboard.webp',
+        alt: 'ErgoVigilance model dashboard comparing YOLO and MediaPipe pose output with model versioning controls',
+        caption: 'Model dashboard — YOLO vs MediaPipe comparison with model versioning and export.',
+        width: 1400,
+        height: 788,
+      },
+      {
+        src: '/projects/ergovigilance-cloud-cameras.webp',
+        alt: 'ErgoVigilance cloud camera management screen listing configured RTSP endpoints and their health',
+        caption: 'Cloud cameras — RTSP endpoint management, including honest empty states.',
+        width: 1400,
+        height: 788,
+      },
+    ],
+    video: {
+      url: ERGO_DEMO,
+      title: 'ErgoVigilance — recorded walkthrough',
+      poster: '/projects/ergovigilance-demo-poster.webp',
+      source: 'YouTube',
+      caption: 'A walkthrough of the running system recorded from the demo.',
+    },
+    challenges:
+      'The model was the easy half. What took the longest was making the output trustworthy: every score has to trace back to a measured joint angle and a documented threshold, and the product has to state plainly what it does not claim. The harder moments were deciding to throw work away — the first accuracy number, and the assumption that the cloud path could reuse the on-premise keypoints.',
+    learned:
+      'Retiring a circular accuracy figure, labelling 500 frames by hand and publishing the honest 87.6% with its limits changed how I build: measurement and stated limits are product features, not fine print. It also showed me that the interesting engineering in applied CV is rarely the model — it is the ingestion, the thresholds, the failure modes and the interface that has to be trusted by someone who will not read the paper.',
+    currentStatus:
+      'TRL-6 and closed: 40 frontend routes and 110+ backend endpoints, 765 automated tests (106 frontend, 478 backend, 181 cloud core), a four-service Docker Compose stack, and the hand-labelled evaluation published in the repository. It is a screening aid, not a medical device, and only the LOW/MEDIUM risk classes have been measured against human labels.',
+    outcomes: [
+      '87.6% agreement with human assessors across 500 hand-labelled frames — LOW/MEDIUM risk classes only',
+      '765 automated tests across frontend, backend and cloud core (106 + 478 + 181)',
+      '40 frontend routes and 110+ backend endpoints running on one pipeline',
+      'Dual-core design: an on-premise MediaPipe path for privacy, a cloud YOLOv8 path with no on-site hardware',
+      'Consent-first identity — face matching only after an explicit, tenant-scoped consent record',
+      'Fail-closed JWT auth: the stack refuses to boot without a secret',
+    ],
+    note: 'A screening aid, not a medical device. Thresholds are RULA/REBA-informed and heuristic, never clinically validated, and only the LOW/MEDIUM risk classes have been measured against human labels.',
+    links: [
+      { label: 'Watch demo', url: ERGO_DEMO, kind: 'video' },
+      { label: 'GitHub', url: `${GH}/Ergovigilance-`, kind: 'repo' },
+    ],
+  },
+
+  /* -------------------------------------------------------------------------
+     FLAGSHIP 02 — MarmaAI
      Every figure below comes from the project's own README and canonical
      status document. The repository is private, so no GitHub link is shown.
      ------------------------------------------------------------------------- */
@@ -314,7 +469,7 @@ export const projects: Project[] = [
   },
 
   /* -------------------------------------------------------------------------
-     FLAGSHIP 02 — Kisan360
+     FLAGSHIP 03 — Kisan360
      Content comes from the Kissan-360 organisation repo README (SIH 2026).
      ------------------------------------------------------------------------- */
   {
@@ -425,161 +580,6 @@ export const projects: Project[] = [
       { label: 'GitHub', url: K360, kind: 'repo' },
       { label: 'System architecture', url: `${K360}/blob/master/SYSTEM_ARCHITECTURE.md`, kind: 'docs' },
       { label: 'Data model & trust', url: `${K360}/blob/master/docs/DATA_MODEL_AND_TRUST.md`, kind: 'docs' },
-    ],
-  },
-
-  /* -------------------------------------------------------------------------
-     FLAGSHIP 03 — ErgoVigilance
-     ------------------------------------------------------------------------- */
-  {
-    slug: 'ergovigilance',
-    title: 'ErgoVigilance',
-    subtitle: 'Real-time posture risk screening',
-    tagline: 'Computer Vision for Workplace Ergonomics',
-    description:
-      'AI-powered workplace ergonomics platform using computer vision to identify posture risk and turn live camera data into actionable ergonomic insights.',
-    category: 'ai',
-    tier: 'flagship',
-    year: '2026',
-    role: 'Lead builder — computer vision pipeline, backend API and dashboard (team project)',
-    period: '2026',
-    status: 'TRL-6, closed',
-    accent: '#3e4a44',
-    stack: [
-      'React 19',
-      'TypeScript',
-      'Vite',
-      'Tailwind CSS',
-      'Recharts',
-      'FastAPI',
-      'Python 3.13',
-      'MediaPipe',
-      'YOLOv8',
-      'ByteTrack',
-      'YuNet / SFace',
-      'HistGradientBoosting',
-      'SQLite / PostgreSQL',
-      'Ollama',
-      'Docker Compose',
-    ],
-    specs: [
-      { label: 'Agreement', value: '87.6% with assessors' },
-      { label: 'Tests', value: '765 automated' },
-      { label: 'API', value: '110+ endpoints' },
-    ],
-    problem:
-      'Ergonomic risk is normally assessed by hand: someone watches a workstation, scores it once, and moves on. That is slow, inconsistent between assessors, and blind to how posture changes across a shift. The question behind ErgoVigilance was whether one ordinary webcam could produce continuous, explainable posture risk that a supervisor can act on — without shipping worker video to a third party.',
-    idea:
-      'One webcam, one continuous signal, no worker video leaving the site. Posture is measured rather than judged: joint angles become biomechanical features, features are scored against RULA/REBA-informed thresholds, dwell-based hysteresis keeps the alert level stable, and every score has to trace back to a measured angle and a documented threshold.',
-    contribution:
-      'I led the build: the pose pipeline and its dual-core design, the biomechanical feature set and risk scoring, the FastAPI backend, the React dashboard across four roles, session replay, the hand-labelled evaluation harness and the four-service Docker deployment. A team worked on the project with me and is credited in the repository.',
-    collaborators: 'A team project — contributors are credited in the repository.',
-    built: [
-      'Real-time pose pipeline — MediaPipe Pose (33 keypoints) over a USB webcam, plus a cloud path using YOLOv8-pose (17 COCO keypoints) and ByteTrack worker tracking over RTSP CCTV.',
-      'Risk engine — 12 biomechanical features across neck, trunk, shoulders, knees, wrists and stance, scored against RULA/REBA-informed thresholds, with temporal hysteresis so alert levels do not flicker frame to frame.',
-      'Four role-based experiences in one React app: operators get live feedback and stretch reminders, supervisors get worker risk summaries and department heatmaps, safety managers get alert management and PDF audit reports, admins get camera configuration and deployment health.',
-      'Session history and replay — recorded sessions replay with the skeleton overlay, frame-by-frame video review with temporal smoothing and keypoint interpolation.',
-      'FastAPI backend with 110+ endpoints, badge/QR and consent-gated face identity, an alert lifecycle with audit trail, and Playwright-rendered PDF safety reports.',
-      'Local AI layer — an Ollama integration turns raw risk scores into plain-language explanations without calling an external API.',
-      'Operational work — four-service Docker Compose stack, fail-closed JWT auth, health and readiness probes, retention policy, AES-256 encrypted backups, CSP headers and non-root containers.',
-    ],
-    how: [
-      {
-        label: 'Capture',
-        detail:
-          'USB webcam or FFmpeg-ingested RTSP CCTV stream, with a setup wizard for framing and lighting.',
-      },
-      {
-        label: 'Pose estimation',
-        detail:
-          'MediaPipe Pose (33 keypoints) on-premise, or YOLOv8-pose (17 COCO keypoints) with ByteTrack in the cloud core.',
-      },
-      {
-        label: 'Biomechanical features',
-        detail: 'Joint angles and alignment across neck, trunk, shoulders, knees, wrists and stance.',
-      },
-      {
-        label: 'Risk scoring',
-        detail:
-          'RULA/REBA-informed thresholds with dwell-based hysteresis so risk levels stay stable.',
-      },
-      {
-        label: 'Task + risk classification',
-        detail: 'HistGradientBoosting classifiers label the activity and calibrate the risk band.',
-      },
-      {
-        label: 'Actionable surface',
-        detail:
-          'Live operator feedback, supervisor heatmaps, alert lifecycle, PDF reports and session replay.',
-      },
-    ],
-    engineering: [
-      'Two pose paths exist for one reason: privacy. MediaPipe runs on-premise so worker video never leaves the site, while the YOLOv8 + ByteTrack cloud core exists for sites where no hardware can be installed. The dashboard behaves the same either way.',
-      'Hysteresis is a product decision, not a smoothing detail. Dwell-based thresholds mean a risk level has to persist before it escalates or clears, so supervisors are not trained to ignore flickering alerts.',
-      'The first accuracy number was circular — measured against auto-generated labels. I retired it, hand-labelled 500 frames and published 87.6% agreement with its limits stated on the validation page itself.',
-      'Only LOW and MEDIUM risk classes were measured against human labels; the page says so rather than implying the whole scale is validated.',
-      'Auth fails closed — the stack refuses to boot without AUTH_JWT_SECRET, and face identity is consent-gated and tenant-scoped, so matching runs only when an explicit consent record exists.',
-      'Local inference by default: the Ollama layer explains risk scores in plain language without an external API call, which keeps both the data and the dependency footprint on site.',
-    ],
-    product:
-      'A recorded walkthrough of the running system is below, and the four screens in the case study are captured from the application itself — the supervisor dashboard, the validation page, the model comparison view and the cloud camera configuration.',
-    showcase:
-      'The dashboard, validation, model-comparison and cloud-camera screens are screenshots captured from the running application — not mockups. The repository carries the full backend, cloud core, frontend, test suites and architecture docs, and the ground-truth evaluation file is published alongside the 87.6% figure.',
-    screenshots: [
-      {
-        src: '/projects/ergovigilance-dashboard.webp',
-        alt: 'ErgoVigilance supervisor dashboard showing live posture risk level, active alerts and team status',
-        caption: 'Live dashboard — current risk level, active alerts and team status from a running session.',
-        width: 1400,
-        height: 788,
-      },
-      {
-        src: '/projects/ergovigilance-validation.webp',
-        alt: 'ErgoVigilance validation page reporting ground-truth evaluation against 500 labelled frames',
-        caption: 'Validation page — the 87.6% figure with its methodology and limits stated on the page itself.',
-        width: 1400,
-        height: 788,
-      },
-      {
-        src: '/projects/ergovigilance-model-dashboard.webp',
-        alt: 'ErgoVigilance model dashboard comparing YOLO and MediaPipe pose output with model versioning controls',
-        caption: 'Model dashboard — YOLO vs MediaPipe comparison with model versioning and export.',
-        width: 1400,
-        height: 788,
-      },
-      {
-        src: '/projects/ergovigilance-cloud-cameras.webp',
-        alt: 'ErgoVigilance cloud camera management screen listing configured RTSP endpoints and their health',
-        caption: 'Cloud cameras — RTSP endpoint management, including honest empty states.',
-        width: 1400,
-        height: 788,
-      },
-    ],
-    video: {
-      url: ERGO_DEMO,
-      title: 'ErgoVigilance — recorded walkthrough',
-      poster: '/projects/ergovigilance-demo-poster.webp',
-      source: 'YouTube',
-      caption: 'A walkthrough of the running system recorded from the demo.',
-    },
-    challenges:
-      'The model was the easy half. What took the longest was making the output trustworthy: every score has to trace back to a measured joint angle and a documented threshold, and the product has to state plainly what it does not claim. The harder moments were deciding to throw work away — the first accuracy number, and the assumption that the cloud path could reuse the on-premise keypoints.',
-    learned:
-      'Retiring a circular accuracy figure, labelling 500 frames by hand and publishing the honest 87.6% with its limits changed how I build: measurement and stated limits are product features, not fine print. It also showed me that the interesting engineering in applied CV is rarely the model — it is the ingestion, the thresholds, the failure modes and the interface that has to be trusted by someone who will not read the paper.',
-    currentStatus:
-      'TRL-6 and closed: 40 frontend routes and 110+ backend endpoints, 765 automated tests (106 frontend, 478 backend, 181 cloud core), a four-service Docker Compose stack, and the hand-labelled evaluation published in the repository. It is a screening aid, not a medical device, and only the LOW/MEDIUM risk classes have been measured against human labels.',
-    outcomes: [
-      '87.6% agreement with human assessors across 500 hand-labelled frames — LOW/MEDIUM risk classes only',
-      '765 automated tests across frontend, backend and cloud core (106 + 478 + 181)',
-      '40 frontend routes and 110+ backend endpoints running on one pipeline',
-      'Dual-core design: an on-premise MediaPipe path for privacy, a cloud YOLOv8 path with no on-site hardware',
-      'Consent-first identity — face matching only after an explicit, tenant-scoped consent record',
-      'Fail-closed JWT auth: the stack refuses to boot without a secret',
-    ],
-    note: 'A screening aid, not a medical device. Thresholds are RULA/REBA-informed and heuristic, never clinically validated, and only the LOW/MEDIUM risk classes have been measured against human labels.',
-    links: [
-      { label: 'Watch demo', url: ERGO_DEMO, kind: 'video' },
-      { label: 'GitHub', url: `${GH}/Ergovigilance-`, kind: 'repo' },
     ],
   },
 
