@@ -1,53 +1,70 @@
-import { Mail, FileText } from 'lucide-react';
-import { motion } from 'motion/react';
+import { FileText, Github, Linkedin, Mail } from 'lucide-react';
+import { site } from '../data/site';
 
-const resumeUrl = "https://drive.google.com/file/d/1l5NIWVssYa5rXqFCPZOCeUfanhmG38pj/view?usp=sharing";
+const primary = {
+  label: 'Email me',
+  href: `mailto:${site.email}`,
+  icon: Mail,
+};
+
+const secondary = [
+  { label: 'LinkedIn', href: site.linkedin, icon: Linkedin },
+  { label: 'GitHub', href: site.github, icon: Github },
+  { label: 'Resume', href: site.resume, icon: FileText },
+];
 
 export function CTA() {
   return (
-    <section id="contact" className="max-w-5xl mx-auto px-6 py-24 sm:py-32 text-center scroll-mt-24">
-      <motion.div 
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="p-10 md:p-20 rounded-[3rem] bg-gradient-to-b from-[#131b2e] to-[#060e20] border border-white/5 shadow-2xl relative overflow-hidden"
-      >
-        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#00d9ff]/50 to-transparent"></div>
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMykiLz48L3N2Zz4=')] opacity-50"></div>
-        
-        <div className="relative z-10">
-          <span className="inline-block text-xs font-mono uppercase tracking-[0.25em] text-[#00d9ff] mb-6">Get in touch</span>
-          <h2 className="text-4xl md:text-5xl font-display font-bold mb-6 tracking-tight text-white drop-shadow">Ready to Build the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00d9ff] to-[#ddb7ff]">Next Generation?</span></h2>
-          <p className="text-[#bbc9ce] text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
-            I'm currently open to collaborative ventures at the intersection of AI, Robotics, and Public Interest. Let's engineer something meaningful.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
-            <a 
-              href="mailto:786rianhussain@gmail.com"
-              aria-label="Email Rian Hussain"
-              className="group w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-4 rounded-full bg-gradient-to-r from-[#00d9ff] to-[#6f00be] text-white font-semibold hover:scale-105 transition-all duration-200 ease-out shadow-[0_0_20px_rgba(0,217,255,0.3)] hover:shadow-[0_0_30px_rgba(0,217,255,0.6)] active:scale-95 text-lg"
-            >
-              <Mail className="w-5 h-5 group-hover:animate-pulse" />
-              Email Me
-            </a>
-            <a
-              href={resumeUrl}
-              aria-label="Open Rian Hussain's resume PDF"
-              className="group w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-4 rounded-full bg-[#131b2e] border border-white/10 text-white font-semibold hover:bg-[#171f33] hover:border-white/20 transition-all duration-200 active:scale-95 text-lg shadow-lg"
-            >
-              <FileText className="w-5 h-5 text-[#bbc9ce] group-hover:text-white transition-colors" />
-              Download Resume
-            </a>
-          </div>
-          
-          <div className="mt-20 flex justify-center gap-6 text-white/20 font-display select-none">
-            <span className="font-semibold text-2xl hover:text-white/40 transition-colors duration-300">Aa</span>
-            <span className="font-semibold text-2xl hover:text-white/40 transition-colors duration-300">Aa</span>
-            <span className="font-semibold text-2xl hover:text-white/40 transition-colors duration-300">Aa</span>
-          </div>
+    <section id="contact" className="mx-auto max-w-5xl scroll-mt-24 px-6 py-20 sm:py-28">
+      <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#0d1528] p-9 text-center sm:p-14">
+        <div
+          className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00d9ff]/60 to-transparent"
+          aria-hidden="true"
+        />
+
+        <p className="flex items-center justify-center gap-3 font-mono text-[11px] uppercase tracking-[0.25em] text-[#00d9ff]">
+          <span className="h-px w-8 bg-[#00d9ff]" aria-hidden="true" />
+          Get in touch
+        </p>
+
+        <h2 className="mx-auto mt-6 max-w-2xl font-display text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-[2.75rem] md:leading-[1.12]">
+          Interested in my work or want to build something together?
+        </h2>
+
+        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[#9fb0c9] sm:text-lg">
+          I&rsquo;m always glad to talk about AI/ML and computer-vision engineering, product work, or a
+          problem worth building a system around.
+        </p>
+
+        <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
+          <a
+            href={primary.href}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#00d9ff] to-[#00b4d8] px-7 py-3.5 text-sm font-semibold text-[#060e20] transition-all duration-200 hover:shadow-[0_0_28px_rgba(0,217,255,0.4)] hover:brightness-110 active:scale-[0.98] sm:w-auto sm:text-base"
+          >
+            <primary.icon className="h-4 w-4" aria-hidden="true" />
+            {primary.label}
+          </a>
+
+          {secondary.map(link => {
+            const Icon = link.icon;
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${link.label} (opens in a new tab)`}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:border-white/25 hover:bg-white/10 sm:w-auto sm:text-base"
+              >
+                <Icon className="h-4 w-4" aria-hidden="true" />
+                {link.label}
+              </a>
+            );
+          })}
         </div>
-      </motion.div>
+
+        <p className="mt-8 font-mono text-xs text-[#7f93ad]">{site.email}</p>
+      </div>
     </section>
   );
 }

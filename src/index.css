@@ -48,7 +48,87 @@ html {
   background: #2f4168;
 }
 
-/* Respect users who ask for less motion */
+/* ---------------------------------------------------------------------------
+   Entrance animations.
+   Hand-written in CSS on purpose: three short fade/slide effects were not worth
+   shipping a full JS animation library for, and CSS animations stay off the
+   main thread. `both` fill mode means an element is never stuck invisible when
+   motion is disabled below.
+   --------------------------------------------------------------------------- */
+@keyframes rh-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rh-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rh-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rh-dialog-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+}
+
+@keyframes rh-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-rise {
+  animation: rh-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade {
+  animation: rh-fade 0.2s ease-out both;
+}
+
+.animate-dialog-in {
+  animation: rh-dialog-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-dialog-out {
+  animation: rh-dialog-out 0.18s ease-in both;
+}
+
+.animate-menu-in {
+  animation: rh-menu-in 0.2s ease-out both;
+}
+
+/* Respect users who ask for less motion: land on the finished state immediately. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -57,6 +137,7 @@ html {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }

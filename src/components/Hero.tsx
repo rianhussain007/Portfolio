@@ -1,132 +1,124 @@
-import { motion } from 'motion/react';
-import { ArrowRight, Github, Linkedin } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
 import { useState } from 'react';
+import { site } from '../data/site';
 
-const links = {
-  github: "https://github.com/rianhussain007",
-  linkedin: "https://linkedin.com/in/rian-hussain-dev",
-};
+const currentlyBuilding = [
+  { name: 'ErgoVigilance', detail: 'real-time ergonomic risk screening from ordinary cameras' },
+  { name: 'MarmaAI', detail: 'AI-guided self-acupressure, in active development' },
+];
+
+/** Staggered entrance. Reduced-motion is handled in CSS, so no JS is involved. */
+const delay = (seconds: number) => ({ animationDelay: `${seconds}s` });
 
 export function Hero() {
   const [photoLoaded, setPhotoLoaded] = useState(true);
 
   return (
-    <section className="max-w-7xl mx-auto px-6 py-20 flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-8 min-h-[85vh]">
-      <div className="flex-1 space-y-8 z-10">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10"
-        >
-          <div className="w-2 h-2 rounded-full bg-[#b9f600] animate-[pulse_3s_ease-in-out_infinite]"></div>
-          <span className="text-[10px] sm:text-xs font-mono tracking-widest text-[#bbc9ce] uppercase">Available for Innovation</span>
-        </motion.div>
+    <section id="home" className="mx-auto max-w-7xl scroll-mt-24 px-6 pb-16 pt-8 sm:pb-24 sm:pt-14">
+      <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-7">
+          <p className="animate-rise mb-6 font-mono text-[11px] uppercase tracking-[0.25em] text-[#7f93ad]">
+            Computer Vision · Applied AI · Full-stack
+          </p>
 
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-          className="text-5xl sm:text-6xl md:text-7xl font-display font-bold leading-[1.1] tracking-tight text-white drop-shadow-lg"
-        >
-          From Ideation to<br/>
-          Impact | <span className="text-[#00d9ff]">AI</span> &<br/>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00d9ff] to-[#ddb7ff]">Policy Innovation</span>
-        </motion.h1>
+          <h1 className="animate-rise font-display tracking-tight" style={delay(0.06)}>
+            <span className="block text-5xl font-bold leading-[1.05] text-white sm:text-6xl lg:text-7xl">
+              {site.name}
+            </span>
+            <span className="mt-3 block text-lg font-semibold text-[#00d9ff] sm:mt-4 sm:text-2xl lg:text-3xl">
+              {site.role}
+            </span>
+          </h1>
 
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="text-lg md:text-xl text-[#bbc9ce] max-w-xl leading-relaxed"
-        >
-          AI/ML Engineer specializing in building scalable products that bridge the gap between complex technical architectures and human-centric policy.
-        </motion.p>
-
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          className="flex flex-wrap items-center gap-4 pt-4"
-        >
-          <a
-            href="#projects"
-            aria-label="Jump to featured projects"
-            className="group flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#00d9ff] to-[#00b4d8] text-[#060e20] font-semibold hover:shadow-[0_0_28px_rgba(0,217,255,0.45)] hover:brightness-110 transition-all duration-200 ease-out active:scale-95"
+          <p
+            className="animate-rise mt-7 max-w-2xl text-base leading-relaxed text-[#9fb0c9] sm:text-lg"
+            style={delay(0.12)}
           >
-            <span>View My Work</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-          </a>
-          <a
-            href={links.github}
-            aria-label="Open Rian Hussain's GitHub profile"
-            className="flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#00d9ff]/50 hover:shadow-[0_0_20px_rgba(0,217,255,0.2)] transition-all duration-200 ease-out group active:scale-95"
-          >
-            <Github className="w-4 h-4 text-[#bbc9ce] group-hover:text-[#00d9ff] transition-colors" />
-            <span className="font-semibold text-white">GitHub</span>
-          </a>
-          <a
-            href={links.linkedin}
-            aria-label="Open Rian Hussain's LinkedIn profile"
-            className="flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#ddb7ff]/50 hover:shadow-[0_0_20px_rgba(221,183,255,0.2)] transition-all duration-200 ease-out group active:scale-95"
-          >
-            <Linkedin className="w-4 h-4 text-[#bbc9ce] group-hover:text-[#ddb7ff] transition-colors" />
-            <span className="font-semibold text-white">LinkedIn</span>
-          </a>
-        </motion.div>
+            I build intelligent systems that connect computer vision, machine learning, backend
+            engineering, and thoughtful product design — turning technical ideas into working products.
+          </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
-          className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-1 text-[11px] font-mono uppercase tracking-[0.18em] text-[#7f93ad]"
-        >
-          <span className="inline-flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-[#00d9ff]" />10+ projects shipped</span>
-          <span className="inline-flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-[#ddb7ff]" />AI/ML · Full-stack</span>
-          <span className="inline-flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-[#b9f600]" />Policy research</span>
-        </motion.div>
-      </div>
+          <div className="animate-rise mt-9 flex flex-wrap items-center gap-3" style={delay(0.18)}>
+            <a
+              href="#work"
+              className="group inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#00d9ff] to-[#00b4d8] px-6 py-3.5 text-sm font-semibold text-[#060e20] transition-all duration-200 hover:shadow-[0_0_28px_rgba(0,217,255,0.4)] hover:brightness-110 active:scale-[0.98] sm:text-base"
+            >
+              View My Work
+              <ArrowRight
+                className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                aria-hidden="true"
+              />
+            </a>
+            <a
+              href={site.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Rian Hussain on GitHub (opens in a new tab)"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:border-white/25 hover:bg-white/10 sm:text-base"
+            >
+              <Github className="h-4 w-4" aria-hidden="true" />
+              GitHub
+            </a>
+          </div>
 
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-        className="flex-1 w-full relative flex justify-center items-center lg:justify-end"
-      >
-        {/* Subtle continuous animation for 3D visual context */}
-        <motion.div 
-          animate={{ rotate: 360 }}
-          transition={{ duration: 180, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 max-w-sm max-h-sm m-auto bg-gradient-to-tr from-[#00d9ff]/15 to-[#ddb7ff]/15 rounded-full blur-[80px] -z-10"
-        />
-        <div className="relative z-10 w-full max-w-[320px] sm:max-w-sm aspect-square rounded-[2rem] bg-[#171f33]/40 border border-white/10 p-2 shadow-[0_0_40px_rgba(0,217,255,0.05)] backdrop-blur-sm group">
-            <div className="w-full h-full rounded-[1.5rem] overflow-hidden relative">
-               {photoLoaded ? (
-                 <img 
-                   src="/rian-photo.png" 
-                   alt="Rian Hussain" 
-                   onError={() => setPhotoLoaded(false)}
-                   className="w-full h-full object-cover object-center opacity-100 group-hover:scale-105 transition-transform duration-700 ease-out" 
-                 />
-               ) : (
-                 <div className="w-full h-full flex items-center justify-center bg-[#0f1a2f] text-white">
-                   <div className="text-center">
-                     <div className="text-5xl font-display font-bold text-[#00d9ff] mb-3">RH</div>
-                     <div className="text-sm font-mono text-[#bbc9ce]">Rian Hussain</div>
-                   </div>
-                 </div>
-               )}
-               <motion.div 
-                 initial={{ opacity: 0, x: 20 }}
-                 animate={{ opacity: 1, x: 0 }}
-                 transition={{ delay: 1, duration: 0.5 }}
-                 className="absolute top-4 right-4 bg-[#0b1326]/80 backdrop-blur-md border border-white/10 px-4 py-2 rounded-xl shadow-lg"
-               >
-                 <p className="text-xs font-mono text-[#bbc9ce] leading-relaxed">Hi, I am<br/><span className="text-[#00d9ff] font-semibold">Rian.</span></p>
-               </motion.div>
-            </div>
+          <div className="animate-rise mt-5 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm" style={delay(0.24)}>
+            <a
+              href={site.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Rian Hussain on LinkedIn (opens in a new tab)"
+              className="inline-flex items-center gap-2 py-2.5 font-medium text-[#9fb0c9] transition-colors hover:text-white"
+            >
+              <Linkedin className="h-4 w-4" aria-hidden="true" />
+              LinkedIn
+            </a>
+            <a
+              href={`mailto:${site.email}`}
+              className="inline-flex items-center gap-2 py-2.5 font-medium text-[#9fb0c9] transition-colors hover:text-white"
+            >
+              <Mail className="h-4 w-4" aria-hidden="true" />
+              {site.email}
+            </a>
+          </div>
         </div>
-      </motion.div>
+
+        <div className="animate-rise lg:col-span-5 lg:justify-self-end" style={delay(0.3)}>
+          <div className="flex items-center gap-6 lg:flex-col lg:items-end">
+            <div className="relative shrink-0">
+              <div className="absolute -inset-3 rounded-full bg-[#00d9ff]/10 blur-2xl" aria-hidden="true" />
+              <div className="relative h-[150px] w-[150px] overflow-hidden rounded-2xl border border-white/10 bg-[#171f33] sm:h-[200px] sm:w-[200px]">
+                {photoLoaded ? (
+                  <img
+                    src={site.photo}
+                    alt="Portrait of Rian Hussain"
+                    width={200}
+                    height={200}
+                    loading="eager"
+                    decoding="async"
+                    onError={() => setPhotoLoaded(false)}
+                    className="h-full w-full object-cover object-center"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center bg-[#0f1a2f]">
+                    <span className="font-display text-4xl font-bold text-[#00d9ff]">RH</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <dl className="min-w-0 text-sm lg:max-w-xs lg:text-right">
+              <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#7f93ad]">
+                Currently building
+              </dt>
+              {currentlyBuilding.map(item => (
+                <dd key={item.name} className="mt-2 leading-relaxed text-[#9fb0c9]">
+                  <span className="font-semibold text-white">{item.name}</span> — {item.detail}
+                </dd>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
