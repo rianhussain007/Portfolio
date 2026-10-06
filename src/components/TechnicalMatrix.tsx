@@ -27,6 +27,7 @@ export function TechnicalMatrix() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="mb-16"
       >
+        <span className="inline-block text-xs font-mono uppercase tracking-[0.25em] text-[#00d9ff] mb-4">Capabilities</span>
         <h2 className="text-4xl md:text-5xl font-display font-bold mb-4 tracking-tight drop-shadow">
           The <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00d9ff] to-[#ddb7ff]">Technical Matrix</span>
         </h2>

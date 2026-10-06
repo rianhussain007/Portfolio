@@ -17,6 +17,7 @@ export function CTA() {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMykiLz48L3N2Zz4=')] opacity-50"></div>
         
         <div className="relative z-10">
+          <span className="inline-block text-xs font-mono uppercase tracking-[0.25em] text-[#00d9ff] mb-6">Get in touch</span>
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-6 tracking-tight text-white drop-shadow">Ready to Build the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00d9ff] to-[#ddb7ff]">Next Generation?</span></h2>
           <p className="text-[#bbc9ce] text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
             I'm currently open to collaborative ventures at the intersection of AI, Robotics, and Public Interest. Let's engineer something meaningful.

@@ -37,6 +37,7 @@ export function Impact() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
+            <span className="inline-block text-xs font-mono uppercase tracking-[0.25em] text-[#b9f600] mb-4">Recognition</span>
             <h2 className="text-4xl md:text-5xl font-display font-bold mb-4 tracking-tight drop-shadow">
               Impact <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#b9f600] to-[#00d9ff]">& Recognition</span>
             </h2>

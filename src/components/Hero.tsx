@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Code, User } from 'lucide-react';
+import { ArrowRight, Github, Linkedin } from 'lucide-react';
 import { useState } from 'react';
 
 const links = {
@@ -47,24 +47,43 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4"
+          className="flex flex-wrap items-center gap-4 pt-4"
         >
+          <a
+            href="#projects"
+            aria-label="Jump to featured projects"
+            className="group flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#00d9ff] to-[#00b4d8] text-[#060e20] font-semibold hover:shadow-[0_0_28px_rgba(0,217,255,0.45)] hover:brightness-110 transition-all duration-200 ease-out active:scale-95"
+          >
+            <span>View My Work</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+          </a>
           <a
             href={links.github}
             aria-label="Open Rian Hussain's GitHub profile"
-            className="flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#00d9ff]/50 hover:shadow-[0_0_20px_rgba(0,217,255,0.2)] transition-all duration-200 ease-out group active:scale-95"
+            className="flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#00d9ff]/50 hover:shadow-[0_0_20px_rgba(0,217,255,0.2)] transition-all duration-200 ease-out group active:scale-95"
           >
-            <Code className="w-4 h-4 text-[#bbc9ce] group-hover:text-[#00d9ff] transition-colors" />
+            <Github className="w-4 h-4 text-[#bbc9ce] group-hover:text-[#00d9ff] transition-colors" />
             <span className="font-semibold text-white">GitHub</span>
           </a>
           <a
             href={links.linkedin}
             aria-label="Open Rian Hussain's LinkedIn profile"
-            className="flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#ddb7ff]/50 hover:shadow-[0_0_20px_rgba(221,183,255,0.2)] transition-all duration-200 ease-out group active:scale-95"
+            className="flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#ddb7ff]/50 hover:shadow-[0_0_20px_rgba(221,183,255,0.2)] transition-all duration-200 ease-out group active:scale-95"
           >
-            <User className="w-4 h-4 text-[#bbc9ce] group-hover:text-[#ddb7ff] transition-colors" />
+            <Linkedin className="w-4 h-4 text-[#bbc9ce] group-hover:text-[#ddb7ff] transition-colors" />
             <span className="font-semibold text-white">LinkedIn</span>
           </a>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
+          className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-1 text-[11px] font-mono uppercase tracking-[0.18em] text-[#7f93ad]"
+        >
+          <span className="inline-flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-[#00d9ff]" />10+ projects shipped</span>
+          <span className="inline-flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-[#ddb7ff]" />AI/ML · Full-stack</span>
+          <span className="inline-flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-[#b9f600]" />Policy research</span>
         </motion.div>
       </div>
 

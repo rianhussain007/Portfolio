@@ -169,6 +169,8 @@ export function Projects() {
             transition={{ duration: 0.55, delay: (i % 4) * 0.08, ease: 'easeOut' }}
             className="group relative flex flex-col bg-[#131b2e]/60 border border-white/5 rounded-3xl overflow-hidden hover:-translate-y-2 hover:border-white/15 hover:shadow-[0_24px_60px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out"
           >
+            {/* Accent hairline sweeps in on hover */}
+            <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-px bg-gradient-to-r from-transparent via-[#00d9ff]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="transform-gpu transition-transform duration-500 group-hover:scale-[1.01]">
               <ProjectCover project={project} />
             </div>
