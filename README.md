@@ -2,7 +2,7 @@
 
 Personal portfolio and case-study site for **Rian Hussain** — AI/ML engineer building production ML systems, full-stack products and applied policy research.
 
-**Live site:** `https://rianhussain007.github.io/Portfolio/`
+**Live site:** https://rianportfolio.netlify.app
 
 ## What's inside
 
@@ -20,13 +20,15 @@ npm run lint       # typecheck
 npm run build      # production build → dist/
 ```
 
-## Deploy (GitHub Pages)
+## Deploy
 
-[.github/workflows/deploy.yml](.github/workflows/deploy.yml) builds and publishes on every push to `main`.
+**Netlify (primary):** the repo is connected to Netlify — every push to `main` builds and publishes automatically to https://rianportfolio.netlify.app.
+
+**GitHub Pages (alternate):** [.github/workflows/deploy.yml](.github/workflows/deploy.yml) builds and publishes on every push to `main`.
 
 One-time setup: **Repo → Settings → Pages → Source: GitHub Actions**.
 
-The workflow sets `BASE_PATH=/Portfolio/` so assets resolve under the project URL. If the repo is renamed, moved to a user site, or served from a custom domain, update that value (`/` for a custom domain or root-served host such as Vercel/Netlify).
+The workflow sets `BASE_PATH=/Portfolio/` so assets resolve under the project URL. If the repo is renamed, moved to a user site, or served from a root-served host (Netlify, Vercel, custom domain), set it to `/` instead.
 
 ## Adding a project
 
