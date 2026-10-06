@@ -1,49 +1,48 @@
 import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
 import { useState } from 'react';
+import { flagshipProjects } from '../data/projects';
 import { site } from '../data/site';
-
-const currentlyBuilding = [
-  { name: 'ErgoVigilance', detail: 'real-time ergonomic risk screening from ordinary cameras' },
-  { name: 'MarmaAI', detail: 'AI-guided self-acupressure, in active development' },
-];
 
 /** Staggered entrance. Reduced-motion is handled in CSS, so no JS is involved. */
 const delay = (seconds: number) => ({ animationDelay: `${seconds}s` });
 
 export function Hero() {
-  const [photoLoaded, setPhotoLoaded] = useState(true);
+  const [photoOk, setPhotoOk] = useState(true);
 
   return (
-    <section id="home" className="mx-auto max-w-7xl scroll-mt-24 px-6 pb-16 pt-8 sm:pb-24 sm:pt-14">
-      <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
-        <div className="lg:col-span-7">
-          <p className="animate-rise mb-6 font-mono text-[11px] uppercase tracking-[0.25em] text-[#7f93ad]">
-            Computer Vision · Applied AI · Full-stack
+    <section id="home" className="mx-auto max-w-[84rem] scroll-mt-24 px-6 pb-14 pt-10 sm:pt-16">
+      <div className="grid gap-12 lg:grid-cols-12 lg:gap-12">
+        <div className="lg:col-span-8">
+          <p className="animate-rise meta-label text-ink-mute">
+            Applied AI <span aria-hidden="true">×</span> Computer Vision{' '}
+            <span aria-hidden="true">×</span> Product Engineering
           </p>
 
-          <h1 className="animate-rise font-display tracking-tight" style={delay(0.06)}>
-            <span className="block text-5xl font-bold leading-[1.05] text-white sm:text-6xl lg:text-7xl">
-              {site.name}
-            </span>
-            <span className="mt-3 block text-lg font-semibold text-[#00d9ff] sm:mt-4 sm:text-2xl lg:text-3xl">
-              {site.role}
-            </span>
+          <h1 className="animate-rise display-hero mt-7 text-ink" style={delay(0.06)}>
+            {site.name}
           </h1>
 
           <p
-            className="animate-rise mt-7 max-w-2xl text-base leading-relaxed text-[#9fb0c9] sm:text-lg"
-            style={delay(0.12)}
+            className="animate-rise mt-6 text-lg font-medium tracking-tight text-olive sm:text-xl"
+            style={delay(0.1)}
           >
-            I build intelligent systems that connect computer vision, machine learning, backend
-            engineering, and thoughtful product design — turning technical ideas into working products.
+            {site.role}
           </p>
 
-          <div className="animate-rise mt-9 flex flex-wrap items-center gap-3" style={delay(0.18)}>
+          <p
+            className="animate-rise mt-6 max-w-3xl text-lg leading-relaxed text-ink-soft sm:text-xl sm:leading-relaxed"
+            style={delay(0.14)}
+          >
+            I build intelligent systems that combine computer vision, machine learning and product
+            engineering to solve real-world problems.
+          </p>
+
+          <div className="animate-rise mt-9 flex flex-wrap items-center gap-3" style={delay(0.2)}>
             <a
               href="#work"
-              className="group inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#00d9ff] to-[#00b4d8] px-6 py-3.5 text-sm font-semibold text-[#060e20] transition-all duration-200 hover:shadow-[0_0_28px_rgba(0,217,255,0.4)] hover:brightness-110 active:scale-[0.98] sm:text-base"
+              className="group inline-flex items-center justify-center gap-2 rounded-md bg-ink px-6 py-3.5 text-sm font-semibold text-cream transition-colors duration-200 hover:bg-[#2c2c27] sm:text-base"
             >
-              View My Work
+              Explore my work
               <ArrowRight
                 className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
                 aria-hidden="true"
@@ -54,71 +53,102 @@ export function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Rian Hussain on GitHub (opens in a new tab)"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:border-white/25 hover:bg-white/10 sm:text-base"
+              className="inline-flex items-center justify-center gap-2 rounded-md border border-line bg-card px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-200 hover:border-ink/30 sm:text-base"
             >
               <Github className="h-4 w-4" aria-hidden="true" />
               GitHub
             </a>
           </div>
 
-          <div className="animate-rise mt-5 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm" style={delay(0.24)}>
+          <div
+            className="animate-rise mt-6 flex flex-wrap items-center gap-x-6 gap-y-1 text-sm"
+            style={delay(0.24)}
+          >
             <a
               href={site.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Rian Hussain on LinkedIn (opens in a new tab)"
-              className="inline-flex items-center gap-2 py-2.5 font-medium text-[#9fb0c9] transition-colors hover:text-white"
+              className="inline-flex items-center gap-2 py-2 font-medium text-ink-soft underline-offset-4 transition-colors hover:text-ink hover:underline"
             >
               <Linkedin className="h-4 w-4" aria-hidden="true" />
               LinkedIn
             </a>
             <a
               href={`mailto:${site.email}`}
-              className="inline-flex items-center gap-2 py-2.5 font-medium text-[#9fb0c9] transition-colors hover:text-white"
+              className="inline-flex items-center gap-2 py-2 font-medium text-ink-soft underline-offset-4 transition-colors hover:text-ink hover:underline"
             >
               <Mail className="h-4 w-4" aria-hidden="true" />
               {site.email}
             </a>
           </div>
+
+          <p
+            className="animate-rise mt-8 flex items-center gap-3 text-sm text-ink-mute"
+            style={delay(0.28)}
+          >
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-olive" aria-hidden="true" />
+            {site.status}
+          </p>
         </div>
 
-        <div className="animate-rise lg:col-span-5 lg:justify-self-end" style={delay(0.3)}>
-          <div className="flex items-center gap-6 lg:flex-col lg:items-end">
-            <div className="relative shrink-0">
-              <div className="absolute -inset-3 rounded-full bg-[#00d9ff]/10 blur-2xl" aria-hidden="true" />
-              <div className="relative h-[150px] w-[150px] overflow-hidden rounded-2xl border border-white/10 bg-[#171f33] sm:h-[200px] sm:w-[200px]">
-                {photoLoaded ? (
-                  <img
-                    src={site.photo}
-                    alt="Portrait of Rian Hussain"
-                    width={200}
-                    height={200}
-                    loading="eager"
-                    decoding="async"
-                    onError={() => setPhotoLoaded(false)}
-                    className="h-full w-full object-cover object-center"
-                  />
-                ) : (
-                  <div className="flex h-full w-full items-center justify-center bg-[#0f1a2f]">
-                    <span className="font-display text-4xl font-bold text-[#00d9ff]">RH</span>
-                  </div>
-                )}
-              </div>
+        <div className="animate-rise lg:col-span-4 lg:justify-self-end" style={delay(0.3)}>
+          <figure className="w-[13.5rem] sm:w-[15rem]">
+            <div className="overflow-hidden rounded-lg border border-line bg-card p-2">
+              {photoOk ? (
+                <img
+                  src={site.photo}
+                  alt="Portrait of Rian Hussain"
+                  width={200}
+                  height={200}
+                  loading="eager"
+                  decoding="async"
+                  onError={() => setPhotoOk(false)}
+                  className="block h-auto w-full rounded-[4px] object-cover"
+                />
+              ) : (
+                <div className="grid aspect-square w-full place-items-center rounded-[4px] bg-sand">
+                  <span className="font-display text-3xl font-semibold text-olive">RH</span>
+                </div>
+              )}
             </div>
-
-            <dl className="min-w-0 text-sm lg:max-w-xs lg:text-right">
-              <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#7f93ad]">
-                Currently building
-              </dt>
-              {currentlyBuilding.map(item => (
-                <dd key={item.name} className="mt-2 leading-relaxed text-[#9fb0c9]">
-                  <span className="font-semibold text-white">{item.name}</span> — {item.detail}
-                </dd>
-              ))}
-            </dl>
-          </div>
+            <figcaption className="meta-label mt-3 text-ink-mute">
+              AI/ML Engineer &amp; Product Builder
+            </figcaption>
+          </figure>
         </div>
       </div>
+
+      {/* Index of the three builds — the fastest way to see what matters here. */}
+      <nav aria-label="Flagship builds" className="mt-14 border-t border-line sm:mt-20">
+        <p className="meta-label pt-6 text-ink-mute">Three flagship builds</p>
+        <ul className="mt-3">
+          {flagshipProjects.map((project, i) => (
+            <li key={project.slug}>
+              <a
+                href={`#${project.slug}`}
+                className="group flex items-baseline gap-4 border-b border-line-soft py-4 transition-colors duration-200 hover:bg-sand/50 sm:gap-8 sm:py-5"
+              >
+                <span className="font-mono text-xs text-ink-mute tabular-nums sm:text-sm">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span className="font-display text-xl font-medium tracking-tight text-ink sm:text-2xl">
+                  {project.title}
+                </span>
+                <span className="ml-auto hidden text-right text-sm text-ink-soft sm:block">
+                  {project.tagline}
+                </span>
+                <span
+                  className="ml-auto shrink-0 text-ink-mute transition-transform duration-200 group-hover:translate-x-1 sm:ml-6"
+                  aria-hidden="true"
+                >
+                  <ArrowRight className="h-4 w-4" />
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </section>
   );
 }

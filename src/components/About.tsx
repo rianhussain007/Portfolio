@@ -10,47 +10,51 @@ const interests = [
 
 export function About() {
   return (
-    <section id="about" className="mx-auto max-w-7xl scroll-mt-24 px-6 py-20 sm:py-28">
-      <SectionHeading
-        eyebrow="About"
-        title="The model is usually the smallest part of the problem"
-        accent="#ddb7ff"
-      />
+    <section id="about" className="mx-auto max-w-[84rem] scroll-mt-24 px-6 py-20 sm:py-28">
+      <SectionHeading index="03" eyebrow="About" title="Why I build the way I do" accent="#9e4e26" />
 
-      <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16">
-        <div className="space-y-6 text-base leading-relaxed text-[#c3cee6] lg:col-span-7 sm:text-lg">
-          <p>
-            I&rsquo;m an engineering student and product builder working across AI, machine learning,
-            computer vision and full-stack systems. I like problems where an ML model is only one part of
-            the solution — where the real work is connecting perception, backend logic, interfaces,
-            verification, testing and deployment into something a person can actually use.
+      <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-7">
+          <p className="font-display text-2xl font-medium leading-snug tracking-tight text-ink sm:text-3xl">
+            I like building systems where AI has to leave the notebook and become part of a real
+            product.
           </p>
-          <p>
-            My work currently includes computer-vision systems such as{' '}
-            <span className="font-semibold text-white">ErgoVigilance</span>, and ongoing research and
-            product development through <span className="font-semibold text-white">MarmaAI</span>.
-          </p>
-          <p className="border-l-2 border-[#00d9ff]/40 pl-5 text-[#9fb0c9]">
-            I care about the unglamorous half of engineering: what happens when a model is wrong, what the
-            interface claims, how a system behaves when a camera disconnects or a stream drops, and whether
-            the numbers on screen can be traced back to something measured.
-          </p>
+
+          <div className="mt-8 space-y-6 text-base leading-relaxed text-ink-soft sm:text-[1.0625rem]">
+            <p>
+              My work spans computer vision, machine learning, backend systems and product
+              engineering. I&rsquo;m particularly interested in problems where perception,
+              intelligence, interfaces and verification have to work together.
+            </p>
+            <p>
+              Projects such as{' '}
+              <span className="font-medium text-ink">MarmaAI</span>,{' '}
+              <span className="font-medium text-ink">Kisan360</span> and{' '}
+              <span className="font-medium text-ink">ErgoVigilance</span> reflect that direction —
+              different problem spaces, but the same goal: turn technical ideas into systems people
+              can actually use.
+            </p>
+            <p className="border-l-2 border-clay/45 pl-5">
+              I care about the unglamorous half of engineering: what happens when a model is wrong,
+              what the interface claims, how a system behaves when a camera disconnects or a price
+              feed goes stale, and whether the number on screen can be traced back to something
+              measured.
+            </p>
+          </div>
         </div>
 
         <div className="lg:col-span-5">
-          <div className="rounded-3xl border border-white/10 bg-[#0d1528]/70 p-7">
-            <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#7f93ad]">
-              Especially interested in
-            </p>
-            <ul className="mt-5 space-y-3">
-              {interests.map(interest => (
-                <li key={interest} className="flex items-center gap-3 text-sm font-medium text-[#dae2fd]">
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#ddb7ff]" aria-hidden="true" />
-                  {interest}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <p className="meta-label text-ink-mute">Especially interested in</p>
+          <ul className="mt-5 border-t border-line">
+            {interests.map(interest => (
+              <li
+                key={interest}
+                className="border-b border-line-soft py-3.5 text-sm font-medium text-ink"
+              >
+                {interest}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

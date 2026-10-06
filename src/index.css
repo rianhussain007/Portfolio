@@ -1,64 +1,132 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   Warm editorial design tokens.
+
+   The previous palette was a cool navy/cyan "AI product" theme. This one is
+   built from paper, ink and two earth accents, so the page reads like an
+   engineering publication rather than a landing page.
+   --------------------------------------------------------------------------- */
 @theme {
-  --color-surface: #0b1326;
-  --color-surface-dim: #060e20;
-  --color-primary: #00d9ff;
-  --color-secondary: #ddb7ff;
-  --color-tertiary: #b9f600;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Outfit", ui-sans-serif, system-ui;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular;
+  --color-canvas: #f4f1ea; /* page background — warm paper */
+  --color-card: #ffffff;
+  --color-sand: #ece8df; /* secondary warm surface */
+  --color-line: #d8d2c6; /* hairline borders */
+  --color-line-soft: #e6e1d6;
+
+  --color-ink: #171714; /* primary type */
+  --color-ink-soft: #4f4e47; /* secondary type */
+  --color-ink-mute: #6a695f; /* tertiary / meta type — 4.9:1 on canvas, 4.5:1 on sand */
+
+  --color-olive: #596b45; /* primary accent */
+  --color-terracotta: #b9663d; /* secondary accent — graphics, rules and fills */
+  --color-clay: #9e4e26; /* secondary accent, darkened for small text (5.2:1) */
+  --color-forest: #4e6b3f;
+  --color-graphite: #3e4a44;
+
+  --color-night: #191a17; /* dark contrast band */
+  --color-cream: #f5f2ea; /* light type on dark */
+  --color-cream-mute: #a9a79a;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 /* Reserve the scrollbar so locking body scroll (case-study modal)
    doesn't shift the layout sideways. */
 html {
   scrollbar-gutter: stable;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
 }
 
 ::selection {
-  background-color: rgba(0, 217, 255, 0.3);
-}
-
-.font-display {
-  font-family: var(--font-display);
+  background-color: rgba(89, 107, 69, 0.22);
 }
 
 /* Visible, on-brand keyboard focus */
 :focus-visible {
-  outline: 2px solid rgba(0, 217, 255, 0.75);
+  outline: 2px solid var(--color-olive);
   outline-offset: 2px;
 }
 
-/* Slim dark scrollbar matching the palette */
+/* Slim scrollbar in the warm palette */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
 }
 ::-webkit-scrollbar-track {
-  background: #060e20;
+  background: #ebe7dd;
 }
 ::-webkit-scrollbar-thumb {
-  background: #22304f;
+  background: #c9c3b5;
   border-radius: 999px;
-  border: 2px solid #060e20;
+  border: 3px solid #ebe7dd;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2f4168;
+  background: #b3ac9c;
+}
+
+/* Editorial helpers ---------------------------------------------------------*/
+
+/* Big display type tightens as it grows, the way a masthead does. */
+.display-hero {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.75rem, 8.5vw, 6.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.022em;
+  font-variation-settings: "opsz" 72;
+}
+
+.display-section {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.9rem, 4.4vw, 3.25rem);
+  line-height: 1.06;
+  letter-spacing: -0.018em;
+  font-variation-settings: "opsz" 48;
+}
+
+.display-project {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.25rem, 6vw, 4.25rem);
+  line-height: 0.99;
+  letter-spacing: -0.022em;
+  font-variation-settings: "opsz" 60;
+}
+
+/* The small uppercase label used for eyebrows, roles and meta rows. */
+.meta-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Hairline rule that fades out — used to open every major section. */
+.rule-fade {
+  background-image: linear-gradient(to right, var(--color-line), rgba(216, 210, 198, 0));
 }
 
 /* ---------------------------------------------------------------------------
    Entrance animations.
-   Hand-written in CSS on purpose: three short fade/slide effects were not worth
-   shipping a full JS animation library for, and CSS animations stay off the
-   main thread. `both` fill mode means an element is never stuck invisible when
-   motion is disabled below.
+   Hand-written in CSS on purpose: a few short fade/slide effects are not worth
+   shipping a JS animation library for, and CSS animations stay off the main
+   thread. `both` fill mode means nothing is stuck invisible when motion is
+   disabled below.
    --------------------------------------------------------------------------- */
 @keyframes rh-rise {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -78,7 +146,7 @@ html {
 @keyframes rh-dialog-in {
   from {
     opacity: 0;
-    transform: translateY(24px) scale(0.98);
+    transform: translateY(20px) scale(0.99);
   }
   to {
     opacity: 1;
@@ -93,14 +161,14 @@ html {
   }
   to {
     opacity: 0;
-    transform: translateY(16px) scale(0.98);
+    transform: translateY(12px) scale(0.99);
   }
 }
 
 @keyframes rh-menu-in {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
   to {
     opacity: 1;
@@ -109,7 +177,7 @@ html {
 }
 
 .animate-rise {
-  animation: rh-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: rh-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .animate-fade {

@@ -1,12 +1,6 @@
 import { FileText, Github, Linkedin, Mail } from 'lucide-react';
 import { site } from '../data/site';
 
-const primary = {
-  label: 'Email me',
-  href: `mailto:${site.email}`,
-  icon: Mail,
-};
-
 const secondary = [
   { label: 'LinkedIn', href: site.linkedin, icon: Linkedin },
   { label: 'GitHub', href: site.github, icon: Github },
@@ -15,34 +9,26 @@ const secondary = [
 
 export function CTA() {
   return (
-    <section id="contact" className="mx-auto max-w-5xl scroll-mt-24 px-6 py-20 sm:py-28">
-      <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#0d1528] p-9 text-center sm:p-14">
-        <div
-          className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00d9ff]/60 to-transparent"
-          aria-hidden="true"
-        />
+    <section id="contact" className="mt-8 scroll-mt-24 bg-night text-cream">
+      <div className="mx-auto max-w-[84rem] px-6 py-24 sm:py-32">
+        <p className="meta-label text-cream-mute">Contact</p>
 
-        <p className="flex items-center justify-center gap-3 font-mono text-[11px] uppercase tracking-[0.25em] text-[#00d9ff]">
-          <span className="h-px w-8 bg-[#00d9ff]" aria-hidden="true" />
-          Get in touch
-        </p>
-
-        <h2 className="mx-auto mt-6 max-w-2xl font-display text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-[2.75rem] md:leading-[1.12]">
-          Interested in my work or want to build something together?
+        <h2 className="mt-6 max-w-3xl text-balance font-display text-3xl font-medium leading-[1.1] tracking-tight text-cream sm:text-5xl">
+          Interested in my work, or want to build something together?
         </h2>
 
-        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[#9fb0c9] sm:text-lg">
-          I&rsquo;m always glad to talk about AI/ML and computer-vision engineering, product work, or a
+        <p className="mt-6 max-w-xl text-base leading-relaxed text-cream-mute sm:text-lg">
+          I&rsquo;m glad to talk about applied AI and computer-vision engineering, product work, or a
           problem worth building a system around.
         </p>
 
-        <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
+        <div className="mt-10 flex flex-wrap items-center gap-3">
           <a
-            href={primary.href}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#00d9ff] to-[#00b4d8] px-7 py-3.5 text-sm font-semibold text-[#060e20] transition-all duration-200 hover:shadow-[0_0_28px_rgba(0,217,255,0.4)] hover:brightness-110 active:scale-[0.98] sm:w-auto sm:text-base"
+            href={`mailto:${site.email}`}
+            className="inline-flex items-center justify-center gap-2 rounded-md bg-cream px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-200 hover:bg-white sm:text-base"
           >
-            <primary.icon className="h-4 w-4" aria-hidden="true" />
-            {primary.label}
+            <Mail className="h-4 w-4" aria-hidden="true" />
+            Email me
           </a>
 
           {secondary.map(link => {
@@ -54,7 +40,7 @@ export function CTA() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${link.label} (opens in a new tab)`}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:border-white/25 hover:bg-white/10 sm:w-auto sm:text-base"
+                className="inline-flex items-center justify-center gap-2 rounded-md border border-white/20 px-6 py-3.5 text-sm font-semibold text-cream transition-colors duration-200 hover:border-white/40 hover:bg-white/5 sm:text-base"
               >
                 <Icon className="h-4 w-4" aria-hidden="true" />
                 {link.label}
@@ -63,7 +49,7 @@ export function CTA() {
           })}
         </div>
 
-        <p className="mt-8 font-mono text-xs text-[#7f93ad]">{site.email}</p>
+        <p className="mt-8 font-mono text-xs text-cream-mute">{site.email}</p>
       </div>
     </section>
   );
