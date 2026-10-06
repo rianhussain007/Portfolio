@@ -87,6 +87,16 @@ Append an entry to the `projects` array in [src/data/projects.ts](src/data/proje
   product: 'What the product actually is, on screen.',     // optional
   screenshots: [{ src: '/projects/example.webp', alt: 'Descriptive alt text', caption: 'What this shows.' }],  // optional
   video: { url: 'https://…', title: '…', poster: '/projects/poster.webp', source: 'YouTube', caption: '…' },  // optional
+  recognition: {                                            // optional — a verifiable external recognition only
+    designation: 'Honorable Proposal',           // exactly as awarded, never "winner" or "first place"
+    event: 'Awarding body and event name',
+    category: 'Category or theme it was awarded under',
+    dates: '21–22 July 2026',
+    year: '2026',
+    proposal: 'Title of the recognized proposal',
+    detail: 'One factual line of context, including what the designation is not.',
+    image: { src: '/projects/certificate.webp', alt: '…', caption: '…', width: 1400, height: 1002 },
+  },
   challenges: 'What was genuinely difficult.',             // optional
   learned: 'The hardest part and what it changed.',        // optional
   currentStatus: 'What works today, what is experimental.', // optional
@@ -103,3 +113,5 @@ Screenshots live in `public/projects/`. Export them as WebP at 1400 px wide (~80
 **Accuracy rule:** only add figures that can be traced to a repository, a test run or a published evaluation, and state their limits next to them. The MarmaAI accuracy table (including the retracted 3.43 mm figure and its corrected 5.75 mm replacement) and the ErgoVigilance 87.6% figure are the reference examples.
 
 **Wording rule:** MarmaAI is a project and product in development — never a company, and never a medical product. Affiliation sections state the role, what was personal work, and what was shared.
+
+**Recognition rule:** a recognition is stored exactly as it was awarded — an `Honorable Proposal` stays an `Honorable Proposal` and is never upgraded to a win or a placement. It renders as one small badge on the project row, one numbered part inside the case study, and one line in the Journey list, so it never competes with the flagship builds. The certificate image is the proof; if there is no document, there is no block.

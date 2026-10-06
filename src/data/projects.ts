@@ -53,6 +53,28 @@ export interface VideoRef {
   caption: string;
 }
 
+/**
+ * An external, verifiable recognition — stored exactly as it was awarded.
+ * The designation is never upgraded into "winner" or "first place".
+ */
+export interface Recognition {
+  /** Official designation, as printed on the certificate. */
+  designation: string;
+  /** Awarding body and event, as printed on the certificate. */
+  event: string;
+  /** The category or theme the recognition was awarded under. */
+  category: string;
+  /** When the finals were held. */
+  dates: string;
+  year: string;
+  /** Title of the recognized proposal. */
+  proposal: string;
+  /** One line of context for the case study, kept factual. */
+  detail: string;
+  /** The certificate itself — the visual proof. */
+  image: ProjectShot;
+}
+
 export interface Project {
   slug: string;
   title: string;
@@ -98,6 +120,8 @@ export interface Project {
   showcase?: string;
   screenshots?: ProjectShot[];
   video?: VideoRef;
+  /** External recognition, shown as a restrained badge and a case-study part. */
+  recognition?: Recognition;
   /** 07 — what was genuinely difficult. */
   challenges?: string;
   /** The hardest part and what it taught. */
@@ -120,6 +144,8 @@ export const categories: Record<CategoryId, { label: string; short: string }> = 
 const GH = 'https://github.com/rianhussain007';
 const K360 = 'https://github.com/Kissan-360/Kisan360_new';
 const ERGO_DEMO = 'https://www.youtube.com/watch?v=ovniLZww4VY';
+const DCEA_REPO = `${GH}/cdm-prototype`;
+const DCEA_PROTOTYPE = 'https://rianhussain007.github.io/cdm-prototype/';
 
 export const projects: Project[] = [
   /* -------------------------------------------------------------------------
@@ -704,9 +730,12 @@ export const projects: Project[] = [
   {
     slug: 'cultural-diversity-multiplier',
     title: 'Digital Cultural Equity Act',
-    tagline: 'Interactive policy prototype for algorithmic language equity',
+    subtitle:
+      'Honorable Proposal · Global Development Public Policy Youth Innovation Contest Finals 2026',
+    tagline:
+      'Policy framework and interactive prototype exploring linguistic equity in algorithmically governed digital platforms',
     description:
-      'A working dashboard that lets you move the proposed language multiplier and watch recommendation scores, reach and earnings recompute live.',
+      'The written proposal — "Silenced by the Algorithm" — with a working simulator attached: move the proposed language multiplier and recommendation scores, reach and creator earnings recompute live in the browser.',
     category: 'policy',
     tier: 'more',
     year: '2026',
@@ -714,10 +743,29 @@ export const projects: Project[] = [
     period: '2026',
     accent: '#9e4e26',
     stack: ['HTML', 'JavaScript', 'Interactive dashboard', 'Data visualization', 'Policy research'],
+    recognition: {
+      designation: 'Honorable Proposal',
+      event: 'Global Development Public Policy Youth Innovation Contest Finals',
+      category: 'Protection of Cultural Diversity',
+      dates: '21–22 July 2026',
+      year: '2026',
+      proposal:
+        'Silenced by the Algorithm: A Policy Framework for Linguistic Cultural Equity in Digital Platform Governance',
+      detail:
+        '"Honorable Proposal" is the official designation printed on the certificate — not a winner or a first-place award.',
+      image: {
+        src: '/projects/dcea-honorable-proposal.webp',
+        alt: 'Certificate designating "Silenced by the Algorithm" an Honorable Proposal at the Global Development Public Policy Youth Innovation Contest Finals, Protection of Cultural Diversity, 21–22 July 2026',
+        caption:
+          'The certificate — the designation, the category and the dates exactly as issued at the finals.',
+        width: 1400,
+        height: 1002,
+      },
+    },
     specs: [
       { label: 'Tiers', value: '3 language tiers' },
       { label: 'Prototype', value: 'Live on GitHub Pages' },
-      { label: 'Submitted', value: 'SDG youth policy 2026' },
+      { label: 'Recognition', value: 'Honorable Proposal · 2026' },
     ],
     problem:
       'Recommendation systems are trained mostly on English data, so content in minority languages is systematically under-ranked. A Bhojpuri creator earns ₹15–50 CPM where an identical English creator earns ₹80–250. A policy fix is only credible if the mechanism can be inspected, so the proposal needed a prototype anyone can operate.',
@@ -733,16 +781,17 @@ export const projects: Project[] = [
       { label: 'Publish the proposal', detail: 'The written policy and the working model ship together.' },
     ],
     currentStatus:
-      'Submitted to the SDGs Youth Public Policy Innovation Challenge 2026, with the interactive prototype deployed on GitHub Pages as working evidence.',
+      'Entered into the Global Development Public Policy Youth Innovation Contest 2026 and recognized as an Honorable Proposal in the Protection of Cultural Diversity category at the finals held 21–22 July 2026. The written framework and the simulator stay public, with the simulator deployed on GitHub Pages as working evidence.',
     outcomes: [
-      'Submitted to the SDGs Youth Public Policy Innovation Challenge 2026',
+      'Honorable Proposal — Global Development Public Policy Youth Innovation Contest Finals 2026, Protection of Cultural Diversity category',
       'Interactive model of three-tier language weighting with live score recomputation',
       'Grounded in Kirdemir et al. (2021), an audit of 256,725 YouTube videos, and Lasser & Poechhacker (2025)',
-      'Deployed on GitHub Pages as working evidence for the proposal',
+      'The written framework, the simulator and the certificate are all public',
     ],
+    note: 'The simulator demonstrates the mechanism described in the proposal — a policy prototype, not a deployed platform feature.',
     links: [
-      { label: 'Live demo', url: `${GH}/cdm-prototype/`, kind: 'live' },
-      { label: 'GitHub', url: `${GH}/cdm-prototype`, kind: 'repo' },
+      { label: 'View Interactive Prototype', url: DCEA_PROTOTYPE, kind: 'live' },
+      { label: 'View Policy Project on GitHub', url: DCEA_REPO, kind: 'repo' },
     ],
   },
   {

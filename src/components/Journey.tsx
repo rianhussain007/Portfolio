@@ -1,3 +1,4 @@
+import { Award } from 'lucide-react';
 import { SectionHeading } from './SectionHeading';
 
 interface Affiliation {
@@ -7,6 +8,8 @@ interface Affiliation {
   mine: string;
   shared: string;
   note?: string;
+  /** Official recognition, stated exactly as awarded. */
+  recognition?: string;
 }
 
 const affiliations: Affiliation[] = [
@@ -43,11 +46,13 @@ const affiliations: Affiliation[] = [
     shared: 'Delivered as the capstone for the programme.',
   },
   {
-    name: 'SDGs Youth Public Policy Innovation Challenge',
-    kind: 'Submission · 2026',
+    name: 'Global Development Public Policy Youth Innovation Contest',
+    kind: 'Finals · 21–22 July 2026',
     role: 'Co-author & prototype engineer',
-    mine: 'The interactive Cultural Diversity Multiplier prototype — sliders that recompute recommendation scores, reach and the earnings gap in the browser.',
-    shared: 'Submitted as a written policy proposal with the working model attached as evidence.',
+    recognition: 'Honorable Proposal — Protection of Cultural Diversity',
+    mine: 'The written framework "Silenced by the Algorithm: A Policy Framework for Linguistic Cultural Equity in Digital Platform Governance" and the interactive Cultural Diversity Multiplier prototype — sliders that recompute recommendation scores, reach and the earnings gap in the browser.',
+    shared:
+      'Submitted as a written policy proposal with the working model attached as evidence; the certificate is published as proof of the designation.',
   },
 ];
 
@@ -92,6 +97,12 @@ export function Journey() {
                 </h3>
                 <p className="meta-label mt-2 text-ink-mute">{item.kind}</p>
                 <p className="mt-4 text-sm font-medium text-ink">{item.role}</p>
+                {item.recognition && (
+                  <p className="meta-label mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-clay">
+                    <Award className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                    <span>{item.recognition}</span>
+                  </p>
+                )}
                 {item.note && (
                   <p className="mt-3 text-xs leading-relaxed text-ink-mute">{item.note}</p>
                 )}
@@ -112,9 +123,11 @@ export function Journey() {
       </ul>
 
       <p className="mt-8 max-w-3xl text-sm leading-relaxed text-ink-mute">
-        No awards, traction, funding or partnerships are claimed anywhere on this page. These are
-        programmes each project was entered into, the collaboration behind it, and the numbers that
-        came out of measuring it.
+        One external recognition appears here — an Honorable Proposal at the Global Development
+        Public Policy Youth Innovation Contest Finals, 2026 — stated exactly as awarded, neither
+        upgraded nor embellished. The rest are programmes each project was entered into, the
+        collaboration behind it, and the numbers that came out of measuring it. No other awards,
+        traction, funding or partnerships are claimed anywhere on this page.
       </p>
     </section>
   );

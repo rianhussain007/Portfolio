@@ -320,6 +320,24 @@ function MoreBuilds({ onOpen }: { onOpen: (slug: string) => void }) {
                 <p className="meta-label mt-2 text-ink-mute">
                   {categories[project.category].short} · {project.period}
                 </p>
+                {/* Official recognition, kept small on purpose: it is context for
+                    the project, not a claim competing with the flagships above. */}
+                {project.recognition && (
+                  <p className="mt-3">
+                    <span
+                      className="meta-label inline-block rounded-sm border px-2.5 py-1"
+                      style={{ color: project.accent, borderColor: `${project.accent}4d` }}
+                    >
+                      {/* Each segment stays whole, so a wrapped badge never starts
+                          a line with a dangling separator. */}
+                      <span className="whitespace-nowrap">Recognition ·</span>{' '}
+                      <span className="whitespace-nowrap">
+                        {project.recognition.designation} ·
+                      </span>{' '}
+                      <span className="whitespace-nowrap">{project.recognition.year}</span>
+                    </span>
+                  </p>
+                )}
               </div>
 
               <p className="text-sm leading-relaxed text-ink-soft sm:col-span-4">

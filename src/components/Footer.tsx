@@ -30,8 +30,9 @@ export function Footer() {
 
         <p className="text-xs leading-relaxed text-cream-mute">
           &copy; {year} {site.name}. Built with React, TypeScript and Tailwind CSS. No metric,
-          award or partnership on this site is invented — every figure is traceable to a repository,
-          a published evaluation file or a running application.
+          award or partnership on this site is invented — every figure, recognition and claim is
+          traceable to a repository, a certificate, a published evaluation file or a running
+          application.
         </p>
       </div>
     </footer>

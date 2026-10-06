@@ -303,6 +303,33 @@ export function ProjectCaseStudy({ project, onClose, onNavigate, prev, next }: P
     ),
   });
 
+  if (project.recognition) {
+    const recognition = project.recognition;
+    parts.push({
+      title: 'Recognition',
+      body: (
+        <div className="space-y-6">
+          <div className="space-y-4">
+            <p className="text-base font-medium leading-relaxed text-ink">
+              {recognition.designation} — {recognition.event}, {recognition.year}
+            </p>
+            <p className="leading-relaxed text-ink-soft">
+              &quot;{recognition.proposal}&quot; was recognized as an {recognition.designation} in
+              the {recognition.category} category.
+            </p>
+            <p className="meta-label text-ink-mute">
+              {recognition.category} · {recognition.dates}
+            </p>
+            <p className="text-sm leading-relaxed text-ink-mute">{recognition.detail}</p>
+          </div>
+
+          {/* The certificate is the proof, so it is shown whole and opens at full size. */}
+          <Screenshot shot={recognition.image} linkToFullSize frameLabel="Certificate" />
+        </div>
+      ),
+    });
+  }
+
   parts.push({
     title: 'Links',
     body: (
