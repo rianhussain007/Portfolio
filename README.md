@@ -7,7 +7,8 @@ Personal portfolio and case-study site for **Rian Hussain** — AI/ML engineer a
 ## What's inside
 
 - **Three flagship builds, up front.** ErgoVigilance, MarmaAI and Kisan360 get large editorial showcases on the homepage, in that order (array order in `projects.ts` is the single source of truth for that sequence). Everything else sits in "More experiments & builds" beneath them.
-- **Nine-part case studies.** Every project opens a dialog built on the same structure: 01 Problem, 02 Approach, 03 My contribution, 04 System, 05 Engineering, 06 Product, 07 Challenges, 08 Current status, 09 Links. Deep-linkable, e.g. `/#work/marmaai`.
+- **Nine-part case studies.** Every project opens a dialog built on the same structure: 01 Problem, 02 Approach, 03 My contribution, 04 System, 05 Engineering, 06 Product, 07 Challenges, 08 Current status, 09 Links.
+- **Real routes, not just hashes.** Every project is also a static page at `/work/<slug>/` with its own title, description, canonical URL, Open Graph tags, JSON-LD and share card, written at build time by [scripts/prerender-routes.ts](scripts/prerender-routes.ts). The legacy `#work/<slug>` links still work.
 - **No card grid.** Flagship projects are full-width, alternating compositions: large display type, hairline rules, and a different visual per project (pipeline spine, service topology, real screenshots plus a recorded demo).
 - **Print-grade palette.** Warm paper (`#F4F1EA`), ink (`#171714`), olive and terracotta accents, with a single dark contrast band for the contact section. Every text/background pair meets WCAG AA (4.5:1).
 - **Real evidence.** Screenshots and the demo video are from the running systems. Every figure traces to a repository, a test suite or a published evaluation file — including the retracted MarmaAI accuracy figure and its corrected replacement.
@@ -25,9 +26,14 @@ React 19 + Vite 6 + Tailwind v4 + TypeScript, type-checked with `tsc`. No animat
 | [src/data/site.ts](src/data/site.ts) | Name, role, status line, canonical URL, nav sections and outbound links. |
 | [src/data/projects.ts](src/data/projects.ts) | All project content, grouped into `flagship` and `more`. |
 | [src/components/](src/components) | One component per section, plus shared pieces (`SectionHeading`, `Screenshot`, `PipelineFlow`, `VideoCard`, `ProjectLinks`). |
-| [scripts/generate-og-image.py](scripts/generate-og-image.py) | Renders the 1200×630 social preview card in the warm palette. |
+| [scripts/generate-og-image.py](scripts/generate-og-image.py) | Renders the site card and the per-project cards in `public/og/`. |
+| [scripts/prerender-routes.ts](scripts/prerender-routes.ts) | Vite plugin: writes one HTML file per project route plus `sitemap.xml`. |
+| [src/lib/seo.ts](src/lib/seo.ts) | Page titles, shared by the app and the prerender step. |
 | [public/projects/](public/projects) | Optimised WebP screenshots and the demo video poster. |
-| [public/robots.txt](public/robots.txt), [public/sitemap.xml](public/sitemap.xml) | Crawler directives and the sitemap. |
+| [public/og/](public/og) | 1200×630 share cards for the three flagships and the policy project. |
+| [public/resume.pdf](public/resume.pdf), [public/404.html](public/404.html) | The resume served from the site itself, and the page Netlify returns for a missing URL. |
+| [public/robots.txt](public/robots.txt) | Crawler directives. The sitemap is generated into `dist/` on every build. |
+| [netlify.toml](netlify.toml) | Build settings, the `/work/:slug` → `/work/:slug/` redirect, and cache headers. |
 
 ## Run locally
 
@@ -45,9 +51,23 @@ npm run preview    # serve the production build
 
 **GitHub Pages (alternate):** [.github/workflows/deploy.yml](.github/workflows/deploy.yml) builds and publishes on every push to `main`. It needs a one-time setup in **Repo → Settings → Pages → Source: GitHub Actions**; until that is done the workflow fails at `actions/configure-pages`, because Pages can only be enabled by a user or an admin token.
 
-## Social preview image
+## Real routes
 
-LinkedIn does not run JavaScript, so `og:image` points at a static file: [public/og-image.png](public/og-image.png). Regenerate it after changing the name, role or project list:
+The case studies are dialogs, so without help a link preview would only ever show the homepage card. The build therefore emits a real file per project:
+
+| URL | Served from |
+| --- | --- |
+| `/` | `dist/index.html` (the app) |
+| `/work/marmaai/` | `dist/work/marmaai/index.html` — same app, MarmaAI metadata |
+| anything else | `dist/404.html` with a 404 status |
+
+The plugin replaces the block in `index.html` between `<!-- route:meta:start` and `<!-- route:meta:end -->`. **Those markers are load-bearing:** the build fails if they are removed, so a page can never ship with the wrong `<head>`. Each route also carries a `<noscript>` summary of the case study, so a reader (or crawler) that runs no JavaScript still gets the text rather than an empty `#root`.
+
+Adding a project needs no extra step — routes and the sitemap come from the `projects` array.
+
+## Social preview images
+
+LinkedIn does not run JavaScript, so `og:image` points at a static file. The site card is [public/og-image.png](public/og-image.png); the flagships and the policy project have their own in [public/og/](public/og), selected by the optional `shareImage` field on a project. A missing card falls back to the site card and warns during the build rather than shipping a broken preview. Regenerate them after changing the name, role, a title, a tagline or the specs:
 
 ```bash
 pip install pillow

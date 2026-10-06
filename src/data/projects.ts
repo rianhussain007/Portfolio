@@ -120,6 +120,11 @@ export interface Project {
   showcase?: string;
   screenshots?: ProjectShot[];
   video?: VideoRef;
+  /**
+   * 1200×630 share card for this project's route, served from `public/og/`.
+   * Falls back to the site card when a project has none.
+   */
+  shareImage?: string;
   /** External recognition, shown as a restrained badge and a case-study part. */
   recognition?: Recognition;
   /** 07 — what was genuinely difficult. */
@@ -187,6 +192,7 @@ export const projects: Project[] = [
       { label: 'Tests', value: '765 automated' },
       { label: 'API', value: '110+ endpoints' },
     ],
+    shareImage: '/og/ergovigilance.png',
     problem:
       'Ergonomic risk is normally assessed by hand: someone watches a workstation, scores it once, and moves on. That is slow, inconsistent between assessors, and blind to how posture changes across a shift. The question behind ErgoVigilance was whether one ordinary webcam could produce continuous, explainable posture risk that a supervisor can act on — without shipping worker video to a third party.',
     idea:
@@ -339,6 +345,7 @@ export const projects: Project[] = [
       { label: 'Tests', value: '805 automated' },
       { label: 'Accuracy', value: '16-point table' },
     ],
+    shareImage: '/og/marmaai.png',
     problem:
       'Acupressure guidance normally comes from a practitioner who knows where each point sits on a specific person. Doing it alone means guessing: you cannot see your own hand from the right angle, you are unsure the point is where it should be, and nothing tells you whether you actually held it correctly. MarmaAI asks whether a camera can close that loop — locate the hand, map the point onto this person rather than a generic diagram, guide the interaction, then verify that it actually happened.',
     idea:
@@ -525,6 +532,7 @@ export const projects: Project[] = [
       { label: 'Snapshot', value: '85 real price rows' },
       { label: 'Headline', value: 'Net realization' },
     ],
+    shareImage: '/og/kisan360.png',
     problem:
       'A farmer selling at the nearest mandi has less information than the market does. A published price says nothing about the transport, storage and other costs that come out of that price, and buyer-side commission is often quoted as though the farmer pays it. Add a stale price feed and no practical way to find a buyer, and the biggest financial decision of the season gets made on the least information in the chain.',
     idea:
@@ -767,6 +775,7 @@ export const projects: Project[] = [
       { label: 'Prototype', value: 'Live on GitHub Pages' },
       { label: 'Recognition', value: 'Honorable Proposal · 2026' },
     ],
+    shareImage: '/og/cultural-diversity-multiplier.png',
     problem:
       'Recommendation systems are trained mostly on English data, so content in minority languages is systematically under-ranked. A Bhojpuri creator earns ₹15–50 CPM where an identical English creator earns ₹80–250. A policy fix is only credible if the mechanism can be inspected, so the proposal needed a prototype anyone can operate.',
     built: [

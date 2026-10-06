@@ -2,6 +2,7 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import {defineConfig} from 'vite';
+import {prerenderRoutes} from './scripts/prerender-routes';
 
 export default defineConfig(() => {
   return {
@@ -9,7 +10,9 @@ export default defineConfig(() => {
     // (project sites live at /Portfolio/). Defaults to '/' for local dev
     // and for hosts that serve at the root (Vercel, Netlify, custom domains).
     base: process.env.BASE_PATH || '/',
-    plugins: [react(), tailwindcss()],
+    // prerenderRoutes() writes a real /work/<slug>/ HTML file per project after
+    // the bundle lands, so every case study has its own shareable metadata.
+    plugins: [react(), tailwindcss(), prerenderRoutes()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

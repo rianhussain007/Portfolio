@@ -6,13 +6,7 @@
     <meta name="theme-color" content="#F4F1EA" />
     <meta name="color-scheme" content="light" />
 
-    <title>Rian Hussain — AI/ML Engineer &amp; Product Builder</title>
-    <meta
-      name="description"
-      content="Applied AI, computer vision and product engineering — featuring MarmaAI, Kisan360 and ErgoVigilance."
-    />
     <meta name="author" content="Rian Hussain" />
-    <link rel="canonical" href="https://rianportfolio.netlify.app/" />
     <!-- Favicon set generated from the RH monogram mark. Transparent corners on
          the .ico/.png so the disc sits cleanly in a browser tab; the iOS icon is
          full-bleed because iOS masks it to a rounded rectangle. -->
@@ -21,6 +15,18 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
+    <!-- route:meta:start
+         This block is the homepage's metadata. scripts/prerender-routes.ts
+         rewrites it per project to emit real /work/<slug>/ pages that each
+         carry their own title, description, canonical and share card. The
+         markers are load-bearing — the build fails without them. -->
+    <title>Rian Hussain — AI/ML Engineer &amp; Product Builder</title>
+    <meta
+      name="description"
+      content="Applied AI, computer vision and product engineering — ErgoVigilance, MarmaAI and Kisan360, plus an Honorable Proposal at the Global Development Public Policy Youth Innovation Contest Finals 2026."
+    />
+    <link rel="canonical" href="https://rianportfolio.netlify.app/" />
+
     <!-- Open Graph: absolute URLs, served statically so crawlers need no JavaScript -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://rianportfolio.netlify.app/" />
@@ -28,7 +34,7 @@
     <meta property="og:title" content="Rian Hussain — AI/ML Engineer &amp; Product Builder" />
     <meta
       property="og:description"
-      content="Applied AI, computer vision and product engineering — featuring MarmaAI, Kisan360 and ErgoVigilance."
+      content="Applied AI, computer vision and product engineering — ErgoVigilance, MarmaAI and Kisan360, plus an Honorable Proposal at the Global Development Public Policy Youth Innovation Contest Finals 2026."
     />
     <meta property="og:image" content="https://rianportfolio.netlify.app/og-image.png" />
     <meta property="og:image:type" content="image/png" />
@@ -36,19 +42,19 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Rian Hussain — AI/ML Engineer and Product Builder. MarmaAI, Kisan360, ErgoVigilance. Applied AI, computer vision and product engineering."
+      content="Rian Hussain — AI/ML Engineer and Product Builder. ErgoVigilance, MarmaAI and Kisan360. Applied AI, computer vision and product engineering."
     />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Rian Hussain — AI/ML Engineer &amp; Product Builder" />
     <meta
       name="twitter:description"
-      content="Applied AI, computer vision and product engineering — featuring MarmaAI, Kisan360 and ErgoVigilance."
+      content="Applied AI, computer vision and product engineering — ErgoVigilance, MarmaAI and Kisan360, plus an Honorable Proposal at the Global Development Public Policy Youth Innovation Contest Finals 2026."
     />
     <meta name="twitter:image" content="https://rianportfolio.netlify.app/og-image.png" />
     <meta
       name="twitter:image:alt"
-      content="Rian Hussain — AI/ML Engineer and Product Builder. MarmaAI, Kisan360, ErgoVigilance."
+      content="Rian Hussain — AI/ML Engineer and Product Builder. ErgoVigilance, MarmaAI and Kisan360."
     />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -67,7 +73,10 @@
         "url": "https://rianportfolio.netlify.app/",
         "image": "https://rianportfolio.netlify.app/rian-photo.png",
         "email": "mailto:786rianhussain@gmail.com",
-        "description": "Applied AI, computer vision and product engineering — featuring MarmaAI, Kisan360 and ErgoVigilance.",
+        "description": "Applied AI, computer vision and product engineering — ErgoVigilance, MarmaAI and Kisan360, plus an Honorable Proposal at the Global Development Public Policy Youth Innovation Contest Finals 2026.",
+        "award": [
+          "Honorable Proposal — Global Development Public Policy Youth Innovation Contest Finals, 2026"
+        ],
         "knowsAbout": [
           "Computer vision",
           "Machine learning",
@@ -85,6 +94,7 @@
         ]
       }
     </script>
+    <!-- route:meta:end -->
   </head>
   <body class="bg-canvas font-sans text-ink antialiased">
     <div id="root"></div>

@@ -8,6 +8,7 @@ import {
   type CategoryId,
   type Project,
 } from '../data/projects';
+import { HOME_TITLE, caseStudyTitle } from '../lib/seo';
 import { PipelineFlow } from './PipelineFlow';
 import { ProjectCaseStudy } from './ProjectCaseStudy';
 import { ProjectLinkButtons } from './ProjectLinks';
@@ -16,11 +17,35 @@ import { SectionHeading } from './SectionHeading';
 import { VideoCard } from './VideoCard';
 
 const HASH_PREFIX = '#work/';
+/** '/work/' in dev and on Netlify; '/Portfolio/work/' when the Pages build runs. */
+const ROUTE_PREFIX = `${import.meta.env.BASE_URL}work/`;
 
-function slugFromHash(hash: string) {
-  if (!hash.startsWith(HASH_PREFIX)) return null;
-  const slug = hash.slice(HASH_PREFIX.length);
-  return projects.some(p => p.slug === slug) ? slug : null;
+function knownSlug(segment: string) {
+  return projects.some(p => p.slug === segment) ? segment : null;
+}
+
+/** The shareable, crawlable URL for a case study. */
+function routeFor(slug: string) {
+  return `${ROUTE_PREFIX}${slug}/`;
+}
+
+/**
+ * Where the open case study comes from: a real `/work/<slug>/` URL first, then
+ * the legacy `#work/<slug>` hash. Any *other* hash means the visitor navigated
+ * elsewhere on the page (e.g. `#about`), which closes the case study.
+ */
+function slugFromLocation(): string | null {
+  const { hash, pathname } = window.location;
+
+  if (hash.startsWith(HASH_PREFIX)) {
+    const fromHash = knownSlug(hash.slice(HASH_PREFIX.length));
+    if (fromHash) return fromHash;
+  } else if (hash) {
+    return null;
+  }
+
+  if (!pathname.startsWith(ROUTE_PREFIX)) return null;
+  return knownSlug(pathname.slice(ROUTE_PREFIX.length).replace(/\/+$/, ''));
 }
 
 /** Compact view of the published accuracy table — real rows, not a summary claim. */
@@ -358,27 +383,57 @@ function MoreBuilds({ onOpen }: { onOpen: (slug: string) => void }) {
 export function SelectedWork() {
   const [openSlug, setOpenSlug] = useState<string | null>(null);
 
-  // Deep links: open a case study straight from #work/<slug>
+  /**
+   * The single place the open case study changes. State and the tab title move
+   * together, because history.pushState/replaceState never fire an event the
+   * page can listen for — relying on a popstate handler leaves a stale title
+   * behind on close.
+   */
+  const applySlug = useCallback((slug: string | null) => {
+    setOpenSlug(slug);
+    const project = slug ? projects.find(p => p.slug === slug) : undefined;
+    document.title = project ? caseStudyTitle(project) : HOME_TITLE;
+  }, []);
+
+  // Deep links: /work/<slug>/ from a share card, or the legacy #work/<slug>.
   useEffect(() => {
-    const sync = () => setOpenSlug(slugFromHash(window.location.hash));
+    const sync = () => {
+      const slug = slugFromLocation();
+      applySlug(slug);
+      // Leaving a case study by any route other than closing it (a nav hash,
+      // the back button) should not strand a project URL in the address bar.
+      if (!slug && window.location.pathname.startsWith(ROUTE_PREFIX)) {
+        window.history.replaceState(null, '', import.meta.env.BASE_URL);
+      }
+    };
     sync();
     window.addEventListener('hashchange', sync);
-    return () => window.removeEventListener('hashchange', sync);
-  }, []);
+    window.addEventListener('popstate', sync);
+    return () => {
+      window.removeEventListener('hashchange', sync);
+      window.removeEventListener('popstate', sync);
+    };
+  }, [applySlug]);
 
-  const openProject = useCallback((slug: string) => {
-    setOpenSlug(slug);
-    if (window.location.hash !== `${HASH_PREFIX}${slug}`) {
-      window.history.replaceState(null, '', `${HASH_PREFIX}${slug}`);
-    }
-  }, []);
+  const openProject = useCallback(
+    (slug: string) => {
+      applySlug(slug);
+      const target = routeFor(slug);
+      if (window.location.pathname !== target) {
+        // pushState, so the browser's back button closes the case study.
+        window.history.pushState({ caseStudy: slug }, '', target);
+      }
+    },
+    [applySlug],
+  );
 
   const closeProject = useCallback(() => {
-    setOpenSlug(null);
-    if (window.location.hash.startsWith(HASH_PREFIX)) {
-      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    applySlug(null);
+    const onRoute = window.location.pathname.startsWith(ROUTE_PREFIX);
+    if (onRoute || window.location.hash.startsWith(HASH_PREFIX)) {
+      window.history.replaceState(null, '', import.meta.env.BASE_URL);
     }
-  }, []);
+  }, [applySlug]);
 
   const openIndex = projects.findIndex(p => p.slug === openSlug);
   const openProjectData = openIndex >= 0 ? projects[openIndex] : null;

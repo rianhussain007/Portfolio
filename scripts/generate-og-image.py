@@ -36,6 +36,69 @@ INK_SOFT = (79, 78, 71)  # #4f4e47
 INK_MUTE = (106, 105, 95)  # #6a695f
 OLIVE = (89, 107, 69)  # #596b45
 TERRACOTTA = (158, 78, 38)  # #9e4e26 (text-safe terracotta)
+FOREST = (78, 107, 63)  # #4e6b3f
+GRAPHITE = (62, 74, 68)  # #3e4a44
+
+# --- per-project share cards ------------------------------------------------
+# Kept in step by hand with src/data/projects.ts, exactly like NAME/ROLE/PROJECTS
+# above: these are static assets, regenerated deliberately rather than at build
+# time, so the deploy never needs Python. Re-run this script after changing a
+# project's title, tagline or specs. The three specs are the same facts the site
+# shows under the title.
+PROJECT_CARDS = [
+    {
+        "slug": "ergovigilance",
+        "eyebrow": "AI / ML \u00b7 2026",
+        "award": None,
+        "title": "ErgoVigilance",
+        "tagline": "Computer vision for workplace ergonomics",
+        "specs": [
+            ("Agreement", "87.6% with assessors"),
+            ("Tests", "765 automated"),
+            ("API", "110+ endpoints"),
+        ],
+        "accent": GRAPHITE,
+    },
+    {
+        "slug": "marmaai",
+        "eyebrow": "AI / ML \u00b7 2025\u2013",
+        "award": None,
+        "title": "MarmaAI",
+        "tagline": "AI-guided self-acupressure",
+        "specs": [
+            ("Acupoints", "21 modelled"),
+            ("Tests", "805 automated"),
+            ("Accuracy", "16-point table"),
+        ],
+        "accent": TERRACOTTA,
+    },
+    {
+        "slug": "kisan360",
+        "eyebrow": "WEB & PRODUCT \u00b7 2026",
+        "award": None,
+        "title": "Kisan360",
+        "tagline": "Market linkages and price discovery for farmers",
+        "specs": [
+            ("Services", "4-service stack"),
+            ("Snapshot", "85 real price rows"),
+            ("Headline", "Net realization"),
+        ],
+        "accent": FOREST,
+    },
+    {
+        "slug": "cultural-diversity-multiplier",
+        "eyebrow": "POLICY & RESEARCH \u00b7 2026",
+        "award": "Honorable Proposal \u00b7 GDPPYI Contest Finals 2026",
+        "title": "Digital Cultural Equity Act",
+        "tagline": "Linguistic equity in algorithmically governed platforms",
+        "specs": [
+            ("Tiers", "3 language tiers"),
+            ("Prototype", "Live on GitHub Pages"),
+            ("Recognition", "Honorable Proposal"),
+        ],
+        "accent": TERRACOTTA,
+    },
+]
 
 NAME = "RIAN HUSSAIN"
 ROLE = "AI/ML ENGINEER & PRODUCT BUILDER"
@@ -257,11 +320,145 @@ def build() -> Image.Image:
     return card
 
 
+def wrap_lines(
+    draw: ImageDraw.ImageDraw, text: str, f: ImageFont.FreeTypeFont, max_width: float, max_lines: int
+) -> list[str] | None:
+    """Greedy wrap; returns None when the text needs more than max_lines."""
+    lines: list[str] = []
+    current = ""
+    for word in text.split():
+        candidate = f"{current} {word}".strip()
+        if not current or measure(draw, candidate, f) <= max_width:
+            current = candidate
+        else:
+            lines.append(current)
+            current = word
+    if current:
+        lines.append(current)
+    return lines if len(lines) <= max_lines else None
+
+
+def fit_paragraph(
+    draw: ImageDraw.ImageDraw,
+    text: str,
+    sizes: tuple[int, ...],
+    max_width: float,
+    max_lines: int,
+) -> tuple[ImageFont.FreeTypeFont, list[str]]:
+    """Largest size at which the text still fits the allowed number of lines."""
+    for size in sizes:
+        f = font("Inter", size, 500, opsz=size)
+        lines = wrap_lines(draw, text, f, max_width, max_lines)
+        if lines:
+            return f, lines
+    f = font("Inter", sizes[-1], 500, opsz=sizes[-1])
+    return f, wrap_lines(draw, text, f, max_width, 99) or [text]
+
+
+def brand_mark(size: int) -> Image.Image | None:
+    """The RH monogram, used as the corner mark on project cards."""
+    source = ROOT / "public" / "favicon.png"
+    if not source.exists():
+        return None
+    mark = Image.open(source).convert("RGBA")
+    return mark.resize((size, size), Image.LANCZOS)
+
+
+def build_project_card(spec: dict) -> Image.Image:
+    """One share card for one project: name, claim, three facts, and the URL."""
+    accent = spec["accent"]
+    card = paper_background()
+    add_dot_grid(card)
+
+    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(layer)
+
+    pad = 88
+    text_width = W - pad * 2 - 120  # keep clear of the monogram
+
+    draw.rounded_rectangle((26, 26, W - 27, H - 27), radius=6, outline=LINE + (255,), width=1)
+
+    # Eyebrow: a short accent rule, then the discipline and year.
+    draw.rounded_rectangle((pad, 100, pad + 58, 105), radius=3, fill=accent + (255,))
+    eyebrow_font = font("JetBrainsMono", 20, 400)
+    draw_tracked(draw, (pad + 78, 92), spec["eyebrow"], eyebrow_font, accent + (255,), 2.2)
+
+    y = 156
+
+    if spec["award"]:
+        draw_tracked(
+            draw,
+            (pad, y),
+            spec["award"].upper(),
+            font("JetBrainsMono", 19, 500),
+            TERRACOTTA + (255,),
+            1.8,
+        )
+        y += 42
+
+    title_font = fit_tracked("Newsreader", 500, spec["title"], 84, text_width, tracking=-1, opsz=72)
+    draw_tracked(draw, (pad, y), spec["title"], title_font, INK + (255,), -1)
+    y += int(title_font.size * 1.06) + 22
+
+    tag_font, tag_lines = fit_paragraph(
+        draw, spec["tagline"], (34, 30, 26, 22), text_width, max_lines=2
+    )
+    for line in tag_lines:
+        draw.text((pad, y), line, font=tag_font, fill=INK_SOFT + (255,))
+        y += int(tag_font.size * 1.32)
+
+    # --- spec band, anchored to the bottom of the card ----------------------
+    band_top = 400
+    band_bottom = band_top + 112
+    draw.rectangle((pad, band_top, W - pad, band_bottom), fill=SAND + (255,))
+    draw.rectangle((pad, band_top, W - pad, band_top + 1), fill=LINE + (255,))
+    draw.rectangle((pad, band_bottom - 1, W - pad, band_bottom), fill=LINE + (255,))
+
+    inner = W - pad * 2
+    slot = inner / len(spec["specs"])
+    label_font = font("JetBrainsMono", 16, 400)
+
+    for i, (label, value) in enumerate(spec["specs"]):
+        x = pad + slot * i + 30
+        draw_tracked(draw, (x, band_top + 26), label.upper(), label_font, INK_MUTE + (255,), 1.5)
+        value_font = fit_tracked("Inter", 600, value, 27, slot - 46, tracking=0, min_size=18, opsz=26)
+        draw.text((x, band_top + 58), value, font=value_font, fill=INK + (255,))
+        if i > 0:
+            draw.rectangle(
+                (pad + slot * i, band_top + 22, pad + slot * i + 1, band_bottom - 22), fill=LINE + (255,)
+            )
+
+    site_font = font("JetBrainsMono", 19, 400)
+    draw.text((pad, band_bottom + 30), SITE, font=site_font, fill=INK_MUTE + (255,))
+    path = f"/work/{spec['slug']}/"
+    path_width = measure(draw, path, site_font)
+    draw.text((W - pad - path_width, band_bottom + 30), path, font=site_font, fill=INK_MUTE + (255,))
+
+    card.alpha_composite(layer)
+
+    mark = brand_mark(96)
+    if mark is not None:
+        card.alpha_composite(mark, (W - pad - 96, 92))
+
+    return card
+
+
 def main() -> None:
     card = build().convert("RGB")
     out = ROOT / "public" / "og-image.png"
     card.save(out, "PNG", optimize=True)
     print(f"wrote {out.relative_to(ROOT)}  {card.size}  {out.stat().st_size / 1024:.1f} KB")
+
+    og_dir = ROOT / "public" / "og"
+    og_dir.mkdir(parents=True, exist_ok=True)
+    for spec in PROJECT_CARDS:
+        project_card = build_project_card(spec).convert("RGB")
+        target = og_dir / f"{spec['slug']}.png"
+        project_card.save(target, "PNG", optimize=True)
+        print(
+            f"wrote {target.relative_to(ROOT)}  {project_card.size}  "
+            f"{target.stat().st_size / 1024:.1f} KB"
+        )
 
 
 if __name__ == "__main__":
