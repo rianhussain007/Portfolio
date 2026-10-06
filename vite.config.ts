@@ -5,6 +5,10 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
+    // BASE_PATH is set by .github/workflows/deploy.yml for GitHub Pages
+    // (project sites live at /Portfolio/). Defaults to '/' for local dev
+    // and for hosts that serve at the root (Vercel, Netlify, custom domains).
+    base: process.env.BASE_PATH || '/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {

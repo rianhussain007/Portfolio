@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X } from 'lucide-react';
 
 const skills = [
-  { name: "PyTorch", type: "AI/ML", prof: "Expertise", projects: "MediMind, WattWise", years: "2 Years", color: "#00d9ff" },
+  { name: "PyTorch", type: "AI/ML", prof: "Expertise", projects: "ErgoVigilance, WattWise", years: "2 Years", color: "#00d9ff" },
   { name: "Python", type: "AI/ML", prof: "Expertise", projects: "All Projects", years: "3+ Years", color: "#00d9ff" },
-  { name: "ML/LLMs", type: "AI/ML", prof: "Expertise", projects: "Digital Culture Act", years: "1.5 Years", color: "#00d9ff" },
+  { name: "ML/LLMs", type: "AI/ML", prof: "Expertise", projects: "TradeGuard AI, Digital Cultural Equity Act", years: "1.5 Years", color: "#00d9ff" },
   { name: "TensorFlow", type: "AI/ML", prof: "Comfortable", projects: "WattWise", years: "1 Year", color: "#00d9ff" },
   { name: "Diffusers", type: "AI/ML", prof: "Learning", projects: "Personal Labs", years: "<1 Year", color: "#00d9ff" },
   { name: "AWS IoT", type: "Backend", prof: "Comfortable", projects: "Velora", years: "1 Year", color: "#ddb7ff" },
@@ -19,7 +19,7 @@ export function TechnicalMatrix() {
   const [selectedSkill, setSelectedSkill] = useState<typeof skills[0] | null>(null);
 
   return (
-    <section id="stack" className="max-w-7xl mx-auto px-6 py-24 sm:py-32 text-center">
+    <section id="stack" className="max-w-7xl mx-auto px-6 py-24 sm:py-32 text-center scroll-mt-24">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

@@ -28,7 +28,7 @@ function AnimatedCounter({ end, duration = 1.5, suffix = "" }: { end: number, du
 
 export function Impact() {
   return (
-    <section id="experience" className="max-w-7xl mx-auto px-6 py-24 sm:py-32">
+    <section id="experience" className="max-w-7xl mx-auto px-6 py-24 sm:py-32 scroll-mt-24">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
         <div>
           <motion.div
@@ -82,7 +82,7 @@ export function Impact() {
 
         <div className="grid grid-cols-2 gap-4 md:gap-6">
           {[
-            { end: 4, suffix: "+", label: "Projects Built & Deployed", color: "#00d9ff", icon: Code },
+            { end: 10, suffix: "+", label: "Projects Built & Shipped", color: "#00d9ff", icon: Code },
             { end: 100, suffix: "+", label: "GitHub Contributions (Q1 2026)", color: "#ddb7ff", icon: Layers },
             { end: 2, suffix: "", label: "Years Building in Public | AI/ML", color: "#b9f600", icon: Globe },
             { end: 3, suffix: "+", label: "Recognition Awards", color: "#ffffff", icon: Trophy }

@@ -5,7 +5,7 @@ const resumeUrl = "https://drive.google.com/file/d/1l5NIWVssYa5rXqFCPZOCeUfanhmG
 
 export function CTA() {
   return (
-    <section className="max-w-5xl mx-auto px-6 py-24 sm:py-32 text-center">
+    <section id="contact" className="max-w-5xl mx-auto px-6 py-24 sm:py-32 text-center scroll-mt-24">
       <motion.div 
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}

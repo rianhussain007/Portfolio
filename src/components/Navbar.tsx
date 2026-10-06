@@ -21,8 +21,8 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[#bbc9ce]">
           <a href="#projects" className="hover:text-[#00d9ff] hover:scale-105 transition-all duration-200">Projects</a>
           <a href="#stack" className="hover:text-[#00d9ff] hover:scale-105 transition-all duration-200">Stack</a>
-          <a href="#research" className="hover:text-[#00d9ff] hover:scale-105 transition-all duration-200">Research</a>
           <a href="#experience" className="hover:text-[#00d9ff] hover:scale-105 transition-all duration-200">Experience</a>
+          <a href="#contact" className="hover:text-[#00d9ff] hover:scale-105 transition-all duration-200">Contact</a>
         </div>
         <div className="relative">
           <button
